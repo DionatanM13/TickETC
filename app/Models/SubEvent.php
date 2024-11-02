@@ -1,0 +1,16 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class SubEvent extends Model
+{
+    public function event(){
+        return $this->belongsTo(Event::class);
+    }
+
+    public function users(){
+        return $this->belongsToMany(User::class);
+    }
+}
