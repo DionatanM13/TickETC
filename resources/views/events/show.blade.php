@@ -20,16 +20,28 @@
                 </ion-icon> {{$eventOwner['name']}}
             </p>
             
-            <form action="/events/join/{{$event->id}}" method="POST">
-                @csrf
-                <a href="/events/join/{$event->id}" 
-                class="btn btn-primary" 
-                id="event-submit"
-                onclick="event.preventDefault();
-                this.closest('form').submit();">
-                Confirmar Presença
-                </a> 
-            </form>
+            @if (auth()->check()) <!-- Verifica se o usuário está logado -->
+                @if (auth()->user()->id == $event->user_id) <!-- Verifica se o usuário logado é o dono do evento -->
+                    <a href="/events/{{$event->id}}/subevents/create" 
+                    class="btn btn-secondary">
+                    Adicionar Subevento
+                    </a>
+                @else
+                    <form action="/events/join/{{$event->id}}" method="POST">
+                        @csrf
+                        <a href="/events/join/{{$event->id}}" 
+                        class="btn btn-primary" 
+                        id="event-submit"
+                        onclick="event.preventDefault();
+                        this.closest('form').submit();">
+                        Confirmar Presença
+                        </a> 
+                    </form>
+                @endif
+            @else
+                <p>Para participar ou adicionar subeventos, <a href="{{ route('login') }}">faça login</a>.</p>
+            @endif
+
 
             <h3>O evento conta com:</h3>
             <ul id="items-list">

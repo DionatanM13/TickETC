@@ -64,7 +64,6 @@ class EventController extends Controller
         $event->user_id = $user->id;
         $event->save();
         return redirect('/')->with('msg', 'Evento Criado com sucesso!');
-        
     }
 
 

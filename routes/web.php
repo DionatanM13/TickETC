@@ -21,5 +21,5 @@ Route::put('/events/update/{id}', [EventController::class, 'update'])->middlewar
 Route::post('/events/join/{id}', [EventController::class, 'joinEvent'])->middleware("auth");
 
 // SUBEVENTOS
-Route::get( '/events/{id}/subevents', [SubEventController::class, 'createSubevents' ])->middleware('auth');
+Route::get( '/events/{id}/subevent', [SubEventController::class, 'createSubevents' ])->middleware('auth');
 Route::post( '/events/{id}/subevents', [SubEventController::class, 'storeSubevents' ]);
