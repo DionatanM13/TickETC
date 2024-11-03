@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->dateTime('date');
-            $table->time("time");
+            $table->text('title');
+            $table->longText('description');
             $table->text("local");
-            $table->integer('capacity');
+            $table->text('size');
             $table->foreignId('event_id')->constrained();
         });
     }   

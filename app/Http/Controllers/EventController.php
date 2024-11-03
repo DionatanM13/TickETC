@@ -40,7 +40,6 @@ class EventController extends Controller
         
         $event->title = $request->title;
         $event->date = $request->date;
-        $event->time = $request->time;
         $event->finalDate = $request->finalDate;
         $event->city = $request->city;
         $event->local = $request->local;
