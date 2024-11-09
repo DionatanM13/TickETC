@@ -7,3 +7,13 @@ document.getElementById('private').addEventListener('change', function() {
         campoDominio.style.display = 'none'; // Esconde o campo
     }
 });
+
+
+function toggleSubEvents() {
+    const container = document.getElementById('subevents-container');
+    if (container.style.display === 'none') {
+        container.style.display = 'block';
+    } else {
+        container.style.display = 'none';
+    }
+}

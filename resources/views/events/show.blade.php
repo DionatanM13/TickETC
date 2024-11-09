@@ -20,8 +20,8 @@
                 </ion-icon> {{$eventOwner['name']}}
             </p>
             
-            @if (auth()->check()) <!-- Verifica se o usuário está logado -->
-                @if (auth()->user()->id == $event->user_id) <!-- Verifica se o usuário logado é o dono do evento -->
+            @if (auth()->check())
+                @if (auth()->user()->id == $event->user_id)
                     <a href="/events/{{$event->id}}/subevents/create" 
                     class="btn btn-secondary">
                     Adicionar Subevento
@@ -37,7 +37,23 @@
                         Confirmar Presença
                         </a> 
                     </form>
+                    
                 @endif
+
+                <!-- Botão para exibir subeventos -->
+                <button onclick="toggleSubEvents()" class="btn btn-primary">Mostrar Subeventos</button>
+
+                <!-- Seção para exibir subeventos -->
+                <div id="subevents-container" style="display: none; margin-top: 20px;">
+                    <h3>Subeventos:</h3>
+                    <ul>
+                        @foreach($subEvents as $subEvent)
+                            <li>
+                                <strong>{{ $subEvent->title }}</strong> - {{ $subEvent->description }}
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
             @else
                 <p>Para participar ou adicionar subeventos, <a href="{{ route('login') }}">faça login</a>.</p>
             @endif

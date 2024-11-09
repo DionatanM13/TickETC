@@ -69,7 +69,15 @@ class EventController extends Controller
     public function show($id) {
         $event = Event::findOrFail($id);
         $eventOwner = User::where('id', $event->user_id)->first()->toArray();
-        return view("events.show", ['event' => $event, 'eventOwner' => $eventOwner]);
+
+        $subEvents = $event->sub_events;
+
+
+        return view("events.show", [
+            'event' => $event, 
+            'eventOwner' => $eventOwner, 
+            'subEvents' => $subEvents
+        ]);
     }
 
     public function dashboard() {
