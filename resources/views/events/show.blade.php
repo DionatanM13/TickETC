@@ -27,35 +27,41 @@
                     Adicionar Subevento
                     </a>
                 @else
-                    <form action="/events/join/{{$event->id}}" method="POST">
-                        @csrf
-                        <a href="/events/join/{{$event->id}}" 
-                        class="btn btn-primary" 
-                        id="event-submit"
-                        onclick="event.preventDefault();
-                        this.closest('form').submit();">
-                        Confirmar Presença
-                        </a> 
-                    </form>
-                    
-                @endif
 
-                <!-- Botão para exibir subeventos -->
-                <button onclick="toggleSubEvents()" class="btn btn-primary">Mostrar Subeventos</button>
-
-                <!-- Seção para exibir subeventos -->
-                <div id="subevents-container" style="display: none; margin-top: 20px;">
-                    <h3>Subeventos:</h3>
-                    <ul>
-                        @foreach($subEvents as $subEvent)
-                            <li>
-                                <strong>{{ $subEvent->title }}</strong> - {{ $subEvent->description }}
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>
+                    @if (!$hasUserJoined)
+                        <form action="/events/join/{{$event->id}}" method="POST">
+                            @csrf
+                            <a href="/events/join/{{$event->id}}" 
+                            class="btn btn-primary" 
+                            id="event-submit"
+                            onclick="event.preventDefault();
+                            this.closest('form').submit();">
+                            Confirmar Presença
+                            </a> 
+                        </form>
+                    @else
+                        <p class="already-joined-msg">Você já está participando desde evento!</p>
+                    @endif
+                @endif                
             @else
-                <p>Para participar ou adicionar subeventos, <a href="{{ route('login') }}">faça login</a>.</p>
+                <p>Para participar ou adicionar subeventos, <a href="{{ route('login') }}"> faça login</a>.</p>
+
+                @if (count($subEvents) > 0)
+                    <!-- Botão para exibir subeventos -->
+                    <button onclick="toggleSubEvents()" class="btn btn-primary">Mostrar Subeventos</button>
+
+                    <!-- Seção para exibir subeventos -->
+                    <div id="subevents-container" style="display: none; margin-top: 20px;">
+                        <h3>Subeventos:</h3>
+                        <ul>
+                            @foreach($subEvents as $subEvent)
+                                <li>
+                                    <strong>{{ $subEvent->title }}</strong> - {{ $subEvent->description }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             @endif
 
 

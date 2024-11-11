@@ -72,18 +72,33 @@ class EventController extends Controller
 
         $subEvents = $event->sub_events;
 
+        $user = Auth::user();
+        $hasUserJoined = false;
+
+        if($user){
+            $userEvents = $user->eventsAsParticipant->toArray();
+            foreach($userEvents as $userEvent){
+                if($userEvent['id'] == $id){
+                    $hasUserJoined = true;
+                }
+            }
+        }
+
 
         return view("events.show", [
             'event' => $event, 
             'eventOwner' => $eventOwner, 
-            'subEvents' => $subEvents
+            'subEvents' => $subEvents,
+            'hasUserJoined' => $hasUserJoined
         ]);
     }
 
     public function dashboard() {
         $user = Auth::user();
         $events = $user->events;
-        return view('events.dashboard', ['events' => $events]);
+
+        $eventsAsParticipant = $user->eventsAsParticipant; 
+        return view('events.dashboard', ['events' => $events, 'eventsAsParticipant' => $eventsAsParticipant]);
     }
 
     public function destroy($id){
@@ -96,7 +111,13 @@ class EventController extends Controller
     }
 
     public function edit($id) {
+
+        $user = Auth::user();
         $event = Event::findOrFail($id);
+
+        if($user->id != $event->user_id){
+            return redirect('/dashboard');
+        }
 
         return view('events.edit', ['event' => $event]);
     }
@@ -106,7 +127,6 @@ class EventController extends Controller
         $data = $request->all();
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
-
             unlink(public_path('img/events/' . $event->image));
             $requestImage = $request->image;
             $extension = $requestImage->extension();
@@ -131,7 +151,14 @@ class EventController extends Controller
 
     }
 
+    public function leaveEvent($id){
+        $user = Auth::user();
+        $event = Event::findOrFail($id);
+        $user->eventsAsParticipant()->detach($id);
 
+        return back()->with('msg', "Sua presença no " . $event->title . " foi removida!");
+
+    }
     // SUBEVENTOS
     
 

@@ -19,6 +19,7 @@ Route::get('/events/edit/{id}', [EventController::class, 'edit'])->middleware('a
 Route::put('/events/update/{id}', [EventController::class, 'update'])->middleware('auth');
 // Inscrição em Evento
 Route::post('/events/join/{id}', [EventController::class, 'joinEvent'])->middleware("auth");
+Route::delete('/events/leave/{id}', [EventController::class, 'leaveEvent'])->middleware("auth");
 
 // SUBEVENTOS
 Route::any( '/events/{id}/subevents/create', [SubEventController::class, 'createSubevent' ])->middleware('auth');
