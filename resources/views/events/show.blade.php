@@ -22,6 +22,10 @@
             
             @if (auth()->check())
                 @if (auth()->user()->id == $event->user_id)
+                    <a href="/events/{{$event->id}}/tickets/create" 
+                    class="btn btn-secondary">
+                    Adicionar tipo de Ingresso/Ticket
+                    </a>
                     <a href="/events/{{$event->id}}/subevents/create" 
                     class="btn btn-secondary">
                     Adicionar Subevento

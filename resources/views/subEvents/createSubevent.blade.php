@@ -38,4 +38,18 @@
         <input type="submit" class="btn btn-primary" value="Criar Subevento">
     </form>
 </div>
+
+@if (count($subEvents) > 0)
+    <!-- Seção para exibir subeventos -->
+    <div id="subevents-container">
+        <h3>Subeventos já criados:</h3>
+        <ul>
+            @foreach($subEvents as $subEvent)
+                <li>
+                    <strong>{{ $subEvent->title }}</strong> - {{ $subEvent->description }}
+                </li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 @endsection
