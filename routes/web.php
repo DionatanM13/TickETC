@@ -22,5 +22,5 @@ Route::post('/events/join/{id}', [EventController::class, 'joinEvent'])->middlew
 Route::delete('/events/leave/{id}', [EventController::class, 'leaveEvent'])->middleware("auth");
 
 // SUBEVENTOS
-Route::any( '/events/{id}/subevents/create', [SubEventController::class, 'createSubevent' ])->middleware('auth');
-Route::post( '/events/{id}/subevents', [SubEventController::class, 'storeSubevent' ]);
+Route::any( '/events/{id}/subevents/create', [SubEventController::class, 'createSubevent'])->middleware('auth');
+Route::post( '/events/{id}/subevents', [SubEventController::class, 'storeSubevent']);

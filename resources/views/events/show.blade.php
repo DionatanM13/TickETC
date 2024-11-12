@@ -45,23 +45,23 @@
                 @endif                
             @else
                 <p>Para participar ou adicionar subeventos, <a href="{{ route('login') }}"> faça login</a>.</p>
+            @endif
 
-                @if (count($subEvents) > 0)
-                    <!-- Botão para exibir subeventos -->
-                    <button onclick="toggleSubEvents()" class="btn btn-primary">Mostrar Subeventos</button>
+            @if (count($subEvents) > 0)
+                <!-- Botão para exibir subeventos -->
+                <button onclick="toggleSubEvents()" class="btn btn-primary">Mostrar Subeventos</button>
 
-                    <!-- Seção para exibir subeventos -->
-                    <div id="subevents-container" style="display: none; margin-top: 20px;">
-                        <h3>Subeventos:</h3>
-                        <ul>
-                            @foreach($subEvents as $subEvent)
-                                <li>
-                                    <strong>{{ $subEvent->title }}</strong> - {{ $subEvent->description }}
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+                <!-- Seção para exibir subeventos -->
+                <div id="subevents-container" style="display: none; margin-top: 20px;">
+                    <h3>Subeventos:</h3>
+                    <ul>
+                        @foreach($subEvents as $subEvent)
+                            <li>
+                                <strong>{{ $subEvent->title }}</strong> - {{ $subEvent->description }}
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
             @endif
 
 

@@ -22,4 +22,7 @@ class Event extends Model
     public function sub_events(){
         return $this->hasMany(SubEvent::class);
     } 
+    public function tickets(){
+        return $this->hasMany(Ticket::class);
+    } 
 }
