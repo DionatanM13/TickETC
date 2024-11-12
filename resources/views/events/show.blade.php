@@ -33,6 +33,24 @@
                 @else
 
                     @if (!$hasUserJoined)
+                        @if($tickets->isNotEmpty())
+                            <h2>Ingressos Disponíveis</h2>
+                            @foreach($tickets as $ticket)
+                                <div class="ticket">
+                                    <h3>{{ $ticket->title }} (Lote {{ $ticket->batch }})</h3>
+                                    <p>Preço: R${{ number_format($ticket->price, 2, ',', '.') }}</p>
+                                    <p>Descrição: {{ $ticket->description }}</p>
+                                    <p>Quantidade disponível: {{ $ticket->quantity }}</p>
+                                    <form action="/" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary">Comprar Ingresso</button>
+                                    </form>
+                                </div>
+                                <hr>
+                            @endforeach
+                        @else
+                            <p>Não há ingressos disponíveis para compra no momento.</p>
+                        @endif
                         <form action="/events/join/{{$event->id}}" method="POST">
                             @csrf
                             <a href="/events/join/{{$event->id}}" 

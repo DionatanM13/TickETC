@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\Ticket;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
@@ -72,6 +73,8 @@ class EventController extends Controller
 
         $subEvents = $event->sub_events;
 
+        $tickets = Ticket::where('event_id', $id)->avaiableLowestBatch();
+
         $user = Auth::user();
         $hasUserJoined = false;
 
@@ -89,7 +92,8 @@ class EventController extends Controller
             'event' => $event, 
             'eventOwner' => $eventOwner, 
             'subEvents' => $subEvents,
-            'hasUserJoined' => $hasUserJoined
+            'hasUserJoined' => $hasUserJoined,
+            'tickets' => $tickets
         ]);
     }
 

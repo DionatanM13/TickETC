@@ -34,7 +34,7 @@ class TicketController extends Controller
         $event = Event::findOrFail($id);
         $ticket->event_id = $event->id;
         $ticket->save();
-        return redirect('/')->with('msg', 'Ticket/Ingresso criado com sucesso para '. $event->title);
+        return back()->with('msg', 'Ticket/Ingresso criado com sucesso para '. $event->title);
     }
 
 }
