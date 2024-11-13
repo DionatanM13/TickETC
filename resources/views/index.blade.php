@@ -20,13 +20,18 @@
     @endif
     <div id="cards-container" class="row">
         @foreach ($events as $event)
-        <div class="card col-md-3">
+        <div class="card col-md-3 ">
             <img src="/img/events/{{$event->image}}" alt="{{$event->title}}">
             <div class="card-body">
-                <p class="card-date">{{date('d/m/Y', strtotime($event->date))}}</p>
+                <p class="card-date">{{date('d/m/Y', strtotime($event->date))}} 
+                    @if ($event->finalDate)
+                        - {{date('d/m/Y', strtotime($event->finalDate))}}
+                    @endif
+                </p>
+                
                 <h5 class="card-title">{{$event->title}}</h5>
-                <p class="card-participants">{{count($event->users)}} Participantes</p>
-                <a href="/events/{{$event->id}}" class="btn btn-primary">Saber mais</a>
+                <p class="card-city">{{$event->city}}</p>
+                <a href="/events/{{$event->id}}" class="btn btn-dark" role="button">Saber mais</a>
             </div>
         </div>
         @endforeach
@@ -37,6 +42,49 @@
         @elseif(count($events) == 0)
             <p>Não há eventos disponíveis</p>  
         @endif
+    </div>
+</div>
+
+<div class="container-fluid my-5">
+    <h2 class="text-center mb-4">Categorias</h2>
+    <div class="row text-center">
+        <div class="col-6 col-md-4 col-lg-2 mb-4">
+            <a href="" class="d-block">
+                <img src="/img/categorias/show.png" alt="Show" class="img-fluid rounded-circle shadow categoria-img">
+                <p class="mt-2 categoria-title">Show</p>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2 mb-4">
+            <a href="" class="d-block">
+                <img src="/img/categorias/educacional.png" alt="Educacional" class="img-fluid rounded-circle shadow categoria-img">
+                <p class="mt-2 categoria-title">Educacional</p>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2 mb-4">
+            <a href="" class="d-block">
+                <img src="/img/categorias/esportes.png" alt="Esportivo" class="img-fluid rounded-circle shadow categoria-img">
+                <p class="mt-2 categoria-title">Esportivo</p>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2 mb-4">
+            <a href="" class="d-block">
+                <img src="/img/categorias/feira.png" alt="Feira" class="img-fluid rounded-circle shadow categoria-img">
+                <p class="mt-2 categoria-title">Feira</p>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2 mb-4">
+            <a href="" class="d-block">
+                <img src="/img/categorias/feira.png" alt="Feira" class="img-fluid rounded-circle shadow categoria-img">
+                <p class="mt-2 categoria-title">Feira</p>
+            </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2 mb-4">
+            <a href="" class="d-block">
+                <img src="/img/categorias/feira.png" alt="Feira" class="img-fluid rounded-circle shadow categoria-img">
+                <p class="mt-2 categoria-title">Feira</p>
+            </a>
+        </div>
+        <!-- Adicione mais categorias conforme necessário -->
     </div>
 </div>
 

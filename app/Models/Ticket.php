@@ -18,7 +18,7 @@ class Ticket extends Model
                         ->orderBy('batch', 'asc')
                         ->min('batch');
 
-        // Retorna todos os ingressos com esse lote, se houver
+        // Retorna todos os ingressos com o menor lote
         return $query->where('batch', $lowestBatch)
                      ->where('quantity', '>', 0)
                      ->get();
@@ -26,6 +26,10 @@ class Ticket extends Model
     
     public function event(){
         return $this->belongsTo(Event::class);
+    }
+
+    public function users(){
+        return $this->belongsToMany(User::class);
     }
 
 }

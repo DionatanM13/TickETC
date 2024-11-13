@@ -11,7 +11,7 @@ body {
 }
 
 header{
-    background-color: #2f095b;
+    background-color: #2e073f;
     border-bottom: 1px solid #7e30e1;
     color: #f3f8ff;
 }
@@ -24,6 +24,11 @@ header{
     padding: 0;
 }
 
+.btn{
+    width: 100%;
+    background-color: #e26ee5;
+}
+
 .btn-primary{
     background-color: #e26ee5;
     border: 2px solid #7e30e1;
@@ -32,6 +37,8 @@ header{
 .btn-primary:hover{
     background-color: #7e30e1;
     border: 2px solid #7e30e1;
+    transition: none;
+    transform: none;
 }
 
 .msg{
@@ -66,7 +73,7 @@ header{
 
 #navbar{
     justify-content: space-between;
-    background-color: #23014b;
+    background-color: #2e073f;
     padding: 5px 0; 
 }
 
@@ -79,6 +86,25 @@ header{
     color: #e26ee5;
 }
 
+#register-button{
+    background-color: #f3f8ff;
+    border-radius: 5px;
+    border: 1px solid #f3f8ff;
+    margin-right: 10px;
+    margin-left: 5px;
+}
+
+#register-button:hover{
+    background-color: #49108b;
+    border: 1px solid #f3f8ff;
+}
+
+#register-button .nav-link{
+    color: #2e073f;
+}
+#register-button a:hover{
+    color: #f3f8ff;
+}
 /* search container*/
 #search-container {
     background-image: url("../img/pessoa1\ show.jpg");
@@ -144,10 +170,26 @@ header{
     margin-bottom: 30px;
 }
 
-.card-participants{
+.card-city{
     font-size: 14px;
     color: #a774e9;
 }
+
+/* CATEGORIAS */
+.categoria-img {
+    transition: transform 0.3s ease;
+    max-height: 200px;
+}
+
+.categoria-img:hover {
+    transform: scale(1.05);
+}
+
+.categoria-title {
+    font-weight: bold;
+    color: #333;
+}
+
 
 /* PAGINA DE CRIAÇÃO DE EVENTO*/
 #event-create-container{

@@ -41,26 +41,25 @@
                                     <p>Preço: R${{ number_format($ticket->price, 2, ',', '.') }}</p>
                                     <p>Descrição: {{ $ticket->description }}</p>
                                     <p>Quantidade disponível: {{ $ticket->quantity }}</p>
-                                    <form action="/" method="POST">
+                                    
+                                    <form action="/events/join/{{$event->id}}/{{$ticket->id}}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-primary">Comprar Ingresso</button>
+                                        <a href="/events/join/{{$event->id}}" 
+                                        class="btn btn-primary" 
+                                        id="event-submit"
+                                        onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                                        Comprar Ingresso
+                                        </a> 
                                     </form>
+
                                 </div>
                                 <hr>
                             @endforeach
                         @else
                             <p>Não há ingressos disponíveis para compra no momento.</p>
                         @endif
-                        <form action="/events/join/{{$event->id}}" method="POST">
-                            @csrf
-                            <a href="/events/join/{{$event->id}}" 
-                            class="btn btn-primary" 
-                            id="event-submit"
-                            onclick="event.preventDefault();
-                            this.closest('form').submit();">
-                            Confirmar Presença
-                            </a> 
-                        </form>
+                        
                     @else
                         <p class="already-joined-msg">Você já está participando desde evento!</p>
                     @endif
@@ -81,6 +80,18 @@
                             <li>
                                 <strong>{{ $subEvent->title }}</strong> - {{ $subEvent->description }}
                             </li>
+                            @if ($hasUserJoined)
+                            <form action="/events/join/{{$event->id}}/{{$ticket->id}}" method="POST">
+                                        @csrf
+                                        <a href="/events/join/{{$event->id}}" 
+                                        class="btn btn-primary" 
+                                        id="event-submit"
+                                        onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                                        Participar
+                                        </a> 
+                                    </form>
+                            @endif
                         @endforeach
                     </ul>
                 </div>

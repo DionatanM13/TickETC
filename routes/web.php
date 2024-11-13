@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\SubEventController;
 use App\Http\Controllers\TicketController;
-use App\Models\SubEvent;
 
 // Página Inicial
 Route::get('/', [EventController::class, "index"]);
@@ -19,7 +18,7 @@ Route::delete('/events/{id}', [EventController::class, 'destroy'])->middleware('
 Route::get('/events/edit/{id}', [EventController::class, 'edit'])->middleware('auth');
 Route::put('/events/update/{id}', [EventController::class, 'update'])->middleware('auth');
 // Inscrição em Evento
-Route::post('/events/join/{id}', [EventController::class, 'joinEvent'])->middleware("auth");
+Route::post('/events/join/{event_id}/{ticket_id}', [EventController::class, 'joinEvent'])->middleware("auth");
 Route::delete('/events/leave/{id}', [EventController::class, 'leaveEvent'])->middleware("auth");
 
 // SUBEVENTOS

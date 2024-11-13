@@ -34,11 +34,11 @@
                     <ul class="navbar-nav">
                         
                         <li class="nav-item">
-                            <a href="/events/create" class="nav-link">Criar Eventos</a>
+                            <a href="/events/create" class="nav-link">CRIAR EVENTO</a>
                         </li>
                         @auth
                         <li class="nav-item">
-                            <a href="/dashboard" class="nav-link">Meus Eventos</a>
+                            <a href="/dashboard" class="nav-link">MEUS EVENTOS</a>
                         </li>
                         <li class="nav-item">
                             <form action="/logout" method="POST">
@@ -46,7 +46,7 @@
                                 <a href="/logout" class="nav-link" 
                                     onclick="event.preventDefault();
                                     this.closest('form').submit();">
-                                    Sair
+                                    SAIR
                                 </a>
                             </form>
                         </li>
@@ -54,10 +54,10 @@
 
                         @guest
                             <li class="nav-item">
-                                <a href="/login" class="nav-link">Fazer Login</a>
+                                <a href="/login" class="nav-link">FAZER LOGIN</a>
                             </li>
-                            <li class="nav-item">
-                                <a href="/register" class="nav-link">Cadastre-se</a>
+                            <li class="nav-item" id="register-button">
+                                <a href="/register" class="nav-link">CADASTRE-SE</a>
                             </li>
                         @endguest
                     </ul>
