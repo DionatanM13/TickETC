@@ -24,11 +24,6 @@ header{
     padding: 0;
 }
 
-.btn{
-    width: 100%;
-    background-color: #e26ee5;
-}
-
 .btn-primary{
     background-color: #e26ee5;
     border: 2px solid #7e30e1;
@@ -39,6 +34,10 @@ header{
     border: 2px solid #7e30e1;
     transition: none;
     transform: none;
+}
+
+.btn-category{
+    width: 100%;
 }
 
 .msg{
@@ -153,7 +152,7 @@ header{
 }
 
 #events-container img{
-    max-height: 250px;
+    height: 250px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
@@ -173,6 +172,21 @@ header{
 .card-city{
     font-size: 14px;
     color: #a774e9;
+}
+
+/* SUBEVENTOS */
+#subevents-container{
+    display: block; 
+    margin-top: 20px;
+}
+
+.subevent{
+    border: 2px solid #7e30e1;
+    align-items: center;
+    text-align: center;
+}
+.subevent p{
+    padding: 2px;
 }
 
 /* CATEGORIAS */
@@ -220,6 +234,8 @@ header{
 #info-container{
     font-size: 36px;
     font-weight: 900;
+    border-radius: 12px;
+    border: 2px solid #7e30e1;
 }
 
 #info-container p{
@@ -227,6 +243,25 @@ header{
     font-size: 14px;
     display: flex;
 }
+
+.event-info{
+    border-bottom: 2px solid #7e30e1;
+    padding: 2px;
+}
+
+#info-container #event-login{
+    font-size: 18px;
+    padding-top: 5px;
+    margin-top: 5px;
+}
+
+#info-container #event-login a{
+    font-size: 15px;
+    margin-left: 10px;
+    padding: 5px;
+}
+
+
 
 #description-container{
     margin-top: 30px;
@@ -245,7 +280,7 @@ header{
 }
 
 #info-container #event-submit{
-    margin: 20px 0;
+    margin: 0;
 }
 
 #info-container .already-joined-msg{
@@ -257,15 +292,22 @@ header{
     width: 275px;
 }
 
-#items-list{
-    list-style: none;
-    padding-left: 0;
+#category-list .item-category{
+    font-size: 14px;
+    border: 1px solid #49108b;
+    border-radius: 35%;
+    text-align: center;
+    margin: 2px;
 }
 
-#items-list li{
+.ticket{
     display: flex;
-    font-size: 16px;
+    border: 1px solid #7e30e1;
+    padding: 0 5px ;
+    align-items: center;
+    text-align: center;
 }
+
 
 /*dashboard*/
 .dashboard-title-container{

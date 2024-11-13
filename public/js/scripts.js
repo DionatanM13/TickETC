@@ -9,7 +9,7 @@ document.getElementById('private').addEventListener('change', function() {
 });
 
 
-function toggleSubEvents() {
+function toggleDashboard() {
     const container = document.getElementById('subevents-container');
     if (container.style.display === 'none') {
         container.style.display = 'block';

@@ -31,7 +31,7 @@
                 
                 <h5 class="card-title">{{$event->title}}</h5>
                 <p class="card-city">{{$event->city}}</p>
-                <a href="/events/{{$event->id}}" class="btn btn-dark" role="button">Saber mais</a>
+                <a href="/events/{{$event->id}}" class="btn btn-dark btn-category" role="button">Saber mais</a>
             </div>
         </div>
         @endforeach

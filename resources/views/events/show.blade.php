@@ -11,12 +11,20 @@
         </div>
         <div id="info-container" class="col-md-6">
             <h1>{{$event->title}}</h1>
-            <p class="event-city">
-                <ion-icon name="location-outline"></ion-icon> {{$event->city}} </p>
-            <p class="events-participants"> <ion-icon name="people-outline">
-                </ion-icon> {{count($event->users)}} participantes
+
+            <div class="d-flex flex-row" id="category-list">
+                @foreach ($event->categories as $category)
+                    <div class="p-2 item-category"><span>{{$category}}</span></div>
+                @endforeach
+            </div>
+
+            <p class="event-info">
+                <ion-icon name="location-outline"></ion-icon> {{$event->city}} 
             </p>
-            <p class="event-owner"><ion-icon name="star-outline">
+            <p class="event-info"> <ion-icon name="calendar-outline">
+                </ion-icon> {{date('d/m/Y', strtotime($event->finalDate))}}
+            </p>
+            <p class="event-info"><ion-icon name="star-outline">
                 </ion-icon> {{$eventOwner['name']}}
             </p>
             
@@ -34,22 +42,21 @@
 
                     @if (!$hasUserJoined)
                         @if($tickets->isNotEmpty())
-                            <h2>Ingressos Disponíveis</h2>
+                            <h5 class="">Ingressos Disponíveis:</h5>
                             @foreach($tickets as $ticket)
-                                <div class="ticket">
-                                    <h3>{{ $ticket->title }} (Lote {{ $ticket->batch }})</h3>
-                                    <p>Preço: R${{ number_format($ticket->price, 2, ',', '.') }}</p>
-                                    <p>Descrição: {{ $ticket->description }}</p>
-                                    <p>Quantidade disponível: {{ $ticket->quantity }}</p>
+                                <div class="ticket col-md-12">
+                                    <p class="p-3">{{ $ticket->title }} (Lote {{ $ticket->batch }})</p>
+                                    <p class="p-2">R${{ number_format($ticket->price, 2, ',', '.') }}</p>
+                                    <p class="p-4">{{ $ticket->description }}</p>
                                     
                                     <form action="/events/join/{{$event->id}}/{{$ticket->id}}" method="POST">
                                         @csrf
                                         <a href="/events/join/{{$event->id}}" 
-                                        class="btn btn-primary" 
+                                        class="btn btn-dark" 
                                         id="event-submit"
                                         onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                                        Comprar Ingresso
+                                        Comprar
                                         </a> 
                                     </form>
 
@@ -65,50 +72,49 @@
                     @endif
                 @endif                
             @else
-                <p>Para participar ou adicionar subeventos, <a href="{{ route('login') }}"> faça login</a>.</p>
+                <p id="event-login">Para participar ou adicionar subeventos: <a class="btn btn-dark" href="{{ route('login') }}"> Faça Login</a></p>
             @endif
 
-            @if (count($subEvents) > 0)
-                <!-- Botão para exibir subeventos -->
-                <button onclick="toggleSubEvents()" class="btn btn-primary">Mostrar Subeventos</button>
+            <div class="col-md-12" id="description-container">
+                <h3>Sobre o evento</h3>
+                <p class="event-description">{{$event->description}}</p>
+            </div>
 
-                <!-- Seção para exibir subeventos -->
-                <div id="subevents-container" style="display: none; margin-top: 20px;">
-                    <h3>Subeventos:</h3>
-                    <ul>
-                        @foreach($subEvents as $subEvent)
-                            <li>
-                                <strong>{{ $subEvent->title }}</strong> - {{ $subEvent->description }}
-                            </li>
+        </div>
+        
+
+        @if (count($subEvents) > 0)
+
+            <!-- Seção para exibir subeventos -->
+            <div class="col-md-12" id="subevents-container">
+                <h3>Subeventos:</h3>
+                
+                    @foreach($subEvents as $subEvent)
+                        <div class="d-flex flex-row subevent">
+                            <p class="col-md-3"><strong>{{ $subEvent->title }}</strong></p>
+                            <p class="col-md-3">{{ $subEvent->description }}</p>
+                            <p class="col-md-2">{{date('d/m/Y', strtotime($subEvent->date))}}</p>
+                            <p class="col-md-2">{{$subEvent->local}}</p>
+
                             @if ($hasUserJoined)
-                            <form action="/events/join/{{$event->id}}/{{$ticket->id}}" method="POST">
-                                        @csrf
-                                        <a href="/events/join/{{$event->id}}" 
-                                        class="btn btn-primary" 
-                                        id="event-submit"
-                                        onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                                        Participar
-                                        </a> 
-                                    </form>
+                                <form action="/events/join/{{$event->id}}" method="POST" class="col-md-2">
+                                    @csrf
+                                    <a href="/events/join/{{$event->id}}" 
+                                    class="btn btn-dark" 
+                                    id="event-submit"
+                                    onclick="event.preventDefault();
+                                    this.closest('form').submit();">
+                                    Participar
+                                    </a> 
+                                </form>
                             @endif
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+                        </div>
+                        
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-
-            <h3>O evento conta com:</h3>
-            <ul id="items-list">
-                @foreach ($event->categories as $categorie)
-                    <li> <ion-icon name="play-outline"></ion-icon> <span>{{$categorie}}</span></li>
-                @endforeach
-            </ul>
-        </div>
-        <div class="col-md-12" id="description-container">
-            <h3>Sobre o evento</h3>
-            <p class="event-description">{{$event->description}}</p>
-        </div>
     </div>
 </div>
 
