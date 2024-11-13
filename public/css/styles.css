@@ -329,6 +329,12 @@ header{
     display: inline-block;
 }
 
+#event-participant-container{
+    background-color: #333;
+    color: #f3f8ff;
+    height: 100%;
+}
+
 /* edit page*/
 
 .img-preview{

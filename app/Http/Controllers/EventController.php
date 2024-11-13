@@ -86,8 +86,6 @@ class EventController extends Controller
                     $hasUserJoined = true;
                 }
             }
-
-            $userSubevents = $user->subEventRegistration->toArray();
         }
 
 
@@ -96,17 +94,32 @@ class EventController extends Controller
             'eventOwner' => $eventOwner, 
             'subEvents' => $subEvents,
             'hasUserJoined' => $hasUserJoined,
-            'tickets' => $tickets,
-            'userSubevents' => $userSubevents
+            'tickets' => $tickets
         ]);
     }
 
     public function dashboard() {
         $user = Auth::user();
+
+        // Info Managers
         $events = $user->events;
 
+
+        // Info Participants
         $eventsAsParticipant = $user->eventsAsParticipant;
-        return view('events.dashboard', ['events' => $events, 'eventsAsParticipant' => $eventsAsParticipant]);
+        $subEventRegistration = $user->subEventRegistration;
+
+        return view('events.dashboard', [
+            'events' => $events, 
+            'eventsAsParticipant' => $eventsAsParticipant, 
+            'subEventRegistration' => $subEventRegistration
+        ]);
+    }
+
+    public function eventReports($event_id){
+        $event = Event::findOrFail($event_id);
+
+        return view('events.reports', ['event' => $event]);
     }
 
     public function destroy($id){

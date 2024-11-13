@@ -32,6 +32,7 @@
                             <td><a href="/events/{{$event->id}}"> {{$event->title}}</a></td>
                             <td>{{count($event->users)}}</td>
                             <td>
+                                <a href="dashboard/{{$event->id}}" class="btn btn-secondary"> <ion-icon name="clipboard-outline"></ion-icon> Relatórios</a>
                                 <a href="/events/edit/{{$event->id}}" class="btn btn-info edit-btn"> <ion-icon name="create-outline"></ion-icon> Editar</a>
                                 <form action="/events/{{$event->id}}" method="POST">
                                     @csrf

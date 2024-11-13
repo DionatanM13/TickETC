@@ -74,4 +74,8 @@ class User extends Authenticatable
     public function subEventRegistration(){
         return $this->belongsToMany(SubEvent::class);
     }
+
+    public function ticket(){
+        return $this->hasOne(Ticket::class);
+    }
 }

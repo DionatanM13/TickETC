@@ -29,3 +29,6 @@ Route::post('/events/{id}/subevents/join/{subevent_id}', [SubEventController::cl
 // TICKETS
 Route::get( '/events/{id}/tickets/create', [TicketController::class, 'createTicket'])->middleware('auth');
 Route::post( '/events/{id}/tickets', [TicketController::class, 'storeTicket']);
+
+// RELATÓRIOS
+Route::get('/dashboard/{event_id}', [EventController::class, 'eventReports'])->middleware();

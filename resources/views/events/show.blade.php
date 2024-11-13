@@ -32,10 +32,12 @@
                 @if (auth()->user()->id == $event->user_id)
                     <a href="/events/{{$event->id}}/tickets/create" 
                     class="btn btn-secondary">
+                    <ion-icon name="add-outline"></ion-icon>
                     Adicionar tipo de Ingresso/Ticket
                     </a>
                     <a href="/events/{{$event->id}}/subevents/create" 
                     class="btn btn-secondary">
+                    <ion-icon name="add-outline"></ion-icon>
                     Adicionar Subevento
                     </a>
                 @else
@@ -45,7 +47,10 @@
                             <h5 class="">Ingressos Disponíveis:</h5>
                             @foreach($tickets as $ticket)
                                 <div class="ticket col-md-12">
-                                    <p class="p-3">{{ $ticket->title }} (Lote {{ $ticket->batch }})</p>
+                                    <p class="p-3">
+                                        <ion-icon name="ticket-outline"></ion-icon>
+                                        {{ $ticket->title }} (Lote {{ $ticket->batch }})
+                                    </p>
                                     <p class="p-2">R${{ number_format($ticket->price, 2, ',', '.') }}</p>
                                     <p class="p-4">{{ $ticket->description }}</p>
                                     

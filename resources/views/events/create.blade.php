@@ -89,7 +89,7 @@
                 <input type="checkbox" name="categories[]" value="Reunião">Reunião
             </div>
         </div>
-        <input type="submit" class="btn btn-dark" value="Criar Evento">
+        <input type="submit" class="btn btn-success" value="Criar Evento">
     </form>
 </div>
 
