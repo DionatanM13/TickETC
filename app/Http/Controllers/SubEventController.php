@@ -35,13 +35,19 @@ class SubEventController extends Controller
         $event = Event::findOrFail($id);
         $subEvent->event_id = $event->id;
         $subEvent->save();
-        return redirect('/')->with('msg', 'Subevento criado com sucesso para '. $event->title);
+        return redirect('/events/'. $event->id)->with('msg', 'Subevento criado com sucesso para '. $event->title);
     }
 
     public function joinSubevent($event_id, $subevent_id) {
         $user = Auth::user();
         $subevent = SubEvent::findOrFail($subevent_id);
 
+        $userSubevents = $user->subEventRegistration->toArray();
+        foreach($userSubevents as $userSubevent){
+            if ($userSubevent['id'] == $subevent->id){
+                return back()->with('msg', "Você já está participando desse subevento");
+            }
+        }
         
         $user->subEventRegistration()->attach($subevent->id);
         

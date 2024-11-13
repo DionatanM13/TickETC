@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sub_event_user', function (Blueprint $table) {
-            $table->foreignId("sub_event_id")->constrained();
-            $table->foreignId("user_id")->constrained();
+        Schema::table('event_user', function (Blueprint $table) {
+            $table->foreignId('ticket_id')->constrained();
         });
     }
 
@@ -22,6 +21,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('registrations');
+        Schema::table('event_user', function (Blueprint $table) {
+            $table->foreignId('ticket_id')
+            ->constrained()
+            ->onDelete('cascade');
+        });
     }
 };

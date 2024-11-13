@@ -16,15 +16,25 @@
             <label for="title">Evento:</label>
             <input type="text" class="form-control" id="title" name="title" placeholder="Nome o evento">
         </div>
-        <div class="form-group">
-            <label for="date">Data do evento:</label>
-            <input type="date" class="form-control" id="date" name="date">
+        <div class="d-flex col-md-12">
+            <div class="form-group col-md-2 offset-md-2">
+                <label for="date">Data do evento:</label>
+                <input type="date" class="form-control" id="date" name="date">
+            </div>
+            <div class="form-group col-md-2 offset-md-3">
+                <label for="time">Hora do evento:</label>
+                <input type="time" class="form-control" id="time" name="time">
+            </div>
         </div>
+        
         <div class="form-group">
-            <label for="time">Hora do evento:</label>
-            <input type="time" class="form-control" id="time" name="time">
+            <label for="days">O evento dura mais de um dia?</label>
+            <select name="days" id="days" class="form-control">
+                <option value="0">Não</option>
+                <option value="1">Sim</option>
+            </select>
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-4" id="finalDate" style="display: none;">
             <label for="finalDate">Data final do evento:</label>
             <input type="date" class="form-control" id="finalDate" name="finalDate">
         </div>
@@ -36,12 +46,12 @@
             <label for="local">Local do Evento:</label>
             <input type="text" class="form-control" id="local" name="local" placeholder="Local do evento">
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-4">
             <label for="size">Tamanho do Evento: </label>
             <select name="size" id="size" class="form-control">
-                <option value="pequeno">Pequeno: 200</option>
-                <option value="medio" selected>Médio: 600</option>
-                <option value="grande">Grande: +1000</option>
+                <option value="pequeno">Pequeno: 200 Participantes</option>
+                <option value="medio" selected>Médio: 600 Participantes</option>
+                <option value="grande">Grande: +1000 Participantes</option>
             </select>
         </div>
         <div class="form-group">
@@ -73,13 +83,15 @@
                 <input type="checkbox" name="categories[]" value="Esportivo">Esportivo
             </div>
             <div class="form-group">
-                <input type="checkbox" name="categories[]" value="Palco">Palco
+                <input type="checkbox" name="categories[]" value="Feira">Feira
             </div>
             <div class="form-group">
-                <input type="checkbox" name="categories[]" value="Brindes">Brindes
+                <input type="checkbox" name="categories[]" value="Reunião">Reunião
             </div>
         </div>
-        <input type="submit" class="btn btn-primary" value="Criar Evento">
+        <input type="submit" class="btn btn-dark" value="Criar Evento">
     </form>
 </div>
+
+<script src="/js/scripts.js"></script>
 @endsection

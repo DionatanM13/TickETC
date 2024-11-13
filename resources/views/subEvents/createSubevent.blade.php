@@ -35,7 +35,7 @@
             <textarea name="description" id="description" class="form-control" placeholder="Descrição do subevento"></textarea>
         </div>
 
-        <input type="submit" class="btn btn-primary" value="Criar Subevento">
+        <input type="submit" class="btn btn-success" value="Criar Subevento">
     </form>
 </div>
 

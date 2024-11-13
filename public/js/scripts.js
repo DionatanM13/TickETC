@@ -1,13 +1,22 @@
 document.getElementById('private').addEventListener('change', function() {
     var campoDominio = document.getElementById('campoDominio');
-    console.log("oi");
     if (this.value === '1') {
+        console.log(2)
         campoDominio.style.display = 'block'; // Mostra o campo
     } else {
         campoDominio.style.display = 'none'; // Esconde o campo
     }
 });
 
+document.getElementById('days').addEventListener('change', function() {
+    var campoFinalDate = document.getElementById('finalDate');
+    if (this.value === '1') {
+        console.log(1)
+        campoFinalDate.style.display = 'block'; // Mostra o campo
+    } else {
+        campoFinalDate.style.display = 'none'; // Esconde o campo
+    }
+});
 
 function toggleDashboardOwner(){
     const owner = document.getElementById('event-owner-container');

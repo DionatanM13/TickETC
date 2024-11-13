@@ -209,6 +209,11 @@ header{
 /* PAGINA DE CRIAÇÃO DE EVENTO*/
 #event-create-container{
     padding: 30px;
+    background-color: #49108b;
+    color: #f3f8ff;
+    border: 2px solid #2e073f;
+    border-radius: 12px;
+    margin-top: 10px;
 }
 
 #event-create-container label{

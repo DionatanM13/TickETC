@@ -41,6 +41,7 @@ class EventController extends Controller
         
         $event->title = $request->title;
         $event->date = $request->date;
+        $event->time = $request->time;
         $event->finalDate = $request->finalDate;
         $event->city = $request->city;
         $event->local = $request->local;
@@ -85,6 +86,8 @@ class EventController extends Controller
                     $hasUserJoined = true;
                 }
             }
+
+            $userSubevents = $user->subEventRegistration->toArray();
         }
 
 
@@ -93,7 +96,8 @@ class EventController extends Controller
             'eventOwner' => $eventOwner, 
             'subEvents' => $subEvents,
             'hasUserJoined' => $hasUserJoined,
-            'tickets' => $tickets
+            'tickets' => $tickets,
+            'userSubevents' => $userSubevents
         ]);
     }
 

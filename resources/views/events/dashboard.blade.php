@@ -5,7 +5,7 @@
 @section('content')
 
 <button class="btn btn-light col-md-6" onclick="toggleDashboardOwner()" id="toggle-owner">Meus eventos</button>
-<button class="btn btn-light col-md-6" onclick="toggleDashboardParticipant()" id="toggle-participant">Participando</button>
+<button class="btn btn-dark col-md-6" onclick="toggleDashboardParticipant()" id="toggle-participant">Participando</button>
 
 <div id="event-owner-container" style="display: none;">
 
