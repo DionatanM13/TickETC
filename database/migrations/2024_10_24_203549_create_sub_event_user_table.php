@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('registrations', function (Blueprint $table) {
+        Schema::create('sub_event_user', function (Blueprint $table) {
             $table->foreignId("sub_event_id")->constrained();
             $table->foreignId("user_id")->constrained();
             $table->timestamps();

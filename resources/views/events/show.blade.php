@@ -97,10 +97,10 @@
                             <p class="col-md-2">{{$subEvent->local}}</p>
 
                             @if ($hasUserJoined)
-                                <form action="/events/join/{{$event->id}}" method="POST" class="col-md-2">
+                                <form action="/events/{{$event->id}}/subevents/join/{{$subEvent->id}}" method="POST" class="col-md-2">
                                     @csrf
-                                    <a href="/events/join/{{$event->id}}" 
-                                    class="btn btn-dark" 
+                                    <a href="/events/{{$event->id}}/subevents/join/{{$subEvent->id}}" 
+                                    class="btn btn-dark"
                                     id="event-submit"
                                     onclick="event.preventDefault();
                                     this.closest('form').submit();">

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SubEvent;
 use App\Models\Event;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class SubEventController extends Controller
 {
@@ -35,4 +37,16 @@ class SubEventController extends Controller
         $subEvent->save();
         return redirect('/')->with('msg', 'Subevento criado com sucesso para '. $event->title);
     }
+
+    public function joinSubevent($event_id, $subevent_id) {
+        $user = Auth::user();
+        $subevent = SubEvent::findOrFail($subevent_id);
+
+        
+        $user->subEventRegistration()->attach($subevent->id);
+        
+
+        return back()->with('msg', "Sua presença no ". $subevent->title . " está confirmada!");
+    }
+
 }

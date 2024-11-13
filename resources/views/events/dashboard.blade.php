@@ -3,6 +3,12 @@
 @section('title', 'Dashboard')
 
 @section('content')
+
+<button class="btn btn-light col-md-6" onclick="toggleDashboardOwner()" id="toggle-owner">Meus eventos</button>
+<button class="btn btn-light col-md-6" onclick="toggleDashboardParticipant()" id="toggle-participant">Participando</button>
+
+<div id="event-owner-container" style="display: none;">
+
     <div class="col-md-10 offset-md-1 dashboard-title-container">
         <h1>Meus Eventos</h1>
     </div>
@@ -41,6 +47,10 @@
             <p>Você ainda não tem eventos, <a href="/events/create">Criar Evento</a></p>
         @endif
     </div>
+</div>
+
+<div id="event-participant-container">
+
 
     <div class="col-md-10 offset-md-1 dashboard-title-container">
         <h1>Eventos que estou Participando</h1>
@@ -83,4 +93,5 @@
             <p>Você ainda não está participando em nenhum evento <a href="/">Veja todos os eventos</a></p>
         @endif
     </div>
+</div>
 @endsection

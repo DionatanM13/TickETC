@@ -9,11 +9,18 @@ document.getElementById('private').addEventListener('change', function() {
 });
 
 
-function toggleDashboard() {
-    const container = document.getElementById('subevents-container');
-    if (container.style.display === 'none') {
-        container.style.display = 'block';
-    } else {
-        container.style.display = 'none';
-    }
+function toggleDashboardOwner(){
+    const owner = document.getElementById('event-owner-container');
+    const participant = document.getElementById('event-participant-container');
+
+        owner.style.display = 'block';
+        participant.style.display = 'none';
+}
+
+function toggleDashboardParticipant(){
+    const owner = document.getElementById('event-owner-container');
+    const participant = document.getElementById('event-participant-container');
+
+    owner.style.display = 'none';
+    participant.style.display = 'block';
 }
