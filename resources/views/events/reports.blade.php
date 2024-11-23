@@ -45,6 +45,7 @@
         </tr>
     </tfoot>
 </table>
+
 @if (count($event->sub_events) > 0)
     <h3>Sub-Eventos</h3>
     @foreach ($event->sub_events as $subevent)
@@ -112,4 +113,8 @@
         @endforeach
     </tbody>
 </table>
+
+<a href="/events/{{$event->id}}/export/csv" class="btn btn-success">Exportar para CSV</a>
+<a href="/events/{{$event->id}}/export/xlsx" class="btn btn-primary">Exportar para Excel</a>
+
 @endsection
