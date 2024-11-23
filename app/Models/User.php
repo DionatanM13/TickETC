@@ -68,7 +68,7 @@ class User extends Authenticatable
     } 
 
     public function eventsAsParticipant(){
-        return $this->belongsToMany(Event::class);
+        return $this->belongsToMany(Event::class, 'event_user_ticket')->withPivot('ticket_id');
     }
 
     public function subEventRegistration(){
@@ -76,6 +76,6 @@ class User extends Authenticatable
     }
 
     public function ticket(){
-        return $this->hasOne(Ticket::class);
+        return $this->hasManyThrough(Ticket::class, Event::class);
     }
 }

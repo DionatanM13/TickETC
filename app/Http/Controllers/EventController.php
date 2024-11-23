@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\Ticket;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
 {
@@ -117,7 +118,20 @@ class EventController extends Controller
     }
 
     public function eventReports($event_id){
-        $event = Event::findOrFail($event_id);
+        $event = Event::with(['users', 'sub_events', 'tickets'])->findOrFail($event_id);
+
+        foreach ($event->tickets as $ticket) {
+            $ticket->sold_count = 0; // Inicializa quantidade vendida
+            $ticket->revenue = 0;    // Inicializa receita
+        
+            if ($event->users) {
+                $ticket->sold_count = $event->users
+                                            ->where('pivot.ticket_id', $ticket->id)
+                                            ->count();
+                $ticket->revenue = $ticket->sold_count * $ticket->price;
+            }
+        }
+        
 
         return view('events.reports', ['event' => $event]);
     }
@@ -160,18 +174,32 @@ class EventController extends Controller
         return redirect('/dashboard')->with('msg', 'Evento editado com sucesso!');
     }
 
-    public function joinEvent($event_id, $ticket_id) {
-        $user = Auth::user();
+    public function joinEvent($event_id, $ticket_id)
+{
+    $user = Auth::user();
 
-        $event = Event::findOrFail($event_id);
-        $ticket = Ticket::findOrFail($ticket_id);
+    // Validações
+    $event = Event::findOrFail($event_id);
+    $ticket = Ticket::where('id', $ticket_id)
+        ->where('event_id', $event_id) // Verifica se o ticket pertence ao evento
+        ->firstOrFail();
 
-        $user->eventsAsParticipant()->attach($event_id, ['ticket_id' => $ticket_id]);
+    if ($ticket->quantity <= 0) {
+        return back()->with('error', 'Este ticket está esgotado!');
+    }
+
+    // Transação para garantir consistência
+    DB::transaction(function () use ($user, $event, $ticket) {
+        // Associa o usuário ao evento com o ticket escolhido
+        $user->eventsAsParticipant()->attach($event->id, ['ticket_id' => $ticket->id]);
+
+        // Reduz a quantidade do ticket
         $ticket->quantity -= 1;
         $ticket->save();
+    });
 
-        return back()->with('msg', "Sua presença no " . $event->title . " está confirmada!");
-    }
+    return back()->with('msg', "Sua presença no evento '" . $event->title . "' está confirmada!");
+}
 
     public function leaveEvent($id){
         $user = Auth::user();

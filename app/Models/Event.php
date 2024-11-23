@@ -17,7 +17,7 @@ class Event extends Model
         return $this->belongsTo(User::class);
     }
     public function users(){
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'event_user_ticket')->withPivot('ticket_id');
     }
     public function sub_events(){
         return $this->hasMany(SubEvent::class);
