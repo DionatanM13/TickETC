@@ -22,8 +22,27 @@
                 <input type="date" class="form-control" id="date" name="date" value="{{date('Y-m-d', strtotime($event->date));}}">
             </div>
             <div class="form-group">
+                <label for="time">Hora do evento:</label>
+                <input type="time" class="form-control" id="time" name="time" value="{{$event->time}}">
+            </div>
+            <div class="form-group">
+                <label for="days">O evento dura mais de um dia?</label>
+                <select name="days" id="days" class="form-control">
+                    <option value="0">Não</option>
+                    <option value="1" {{$event->finalDate ? "selected='selected": ''}}>Sim</option>
+                </select>
+            </div>
+            <div class="form-group col-md-4" id="finalDate" {{$event->finalDate != null ? "style='display: none;'": "style='display: block;'"}}>
+                <label for="finalDate">Data final do evento:</label>
+                <input type="date" class="form-control" id="finalDate" name="finalDate" value="{{$event->finalDate}}">
+            </div>
+            <div class="form-group">
                 <label for="city">Cidade:</label>
                 <input type="text" class="form-control" id="city" name="city" placeholder="Local do evento" value="{{$event->city}}">
+            </div>
+            <div class="form-group">
+                <label for="local">Local do Evento:</label>
+                <input type="text" class="form-control" id="local" name="local" placeholder="Local do evento" value="{{$event->local}}">
             </div>
             <div class="form-group">
                 <label for="private">Evento Privado:</label>
@@ -37,24 +56,27 @@
                 <textarea name="description" id="description" class="form-control" placeholder="Descrição do evento">{{$event->description}}</textarea>
             </div>
             <div class="form-group">
-                <label for="items">Itens de infraestrutura:</label>
+                <label for="categories">Categorias:</label>
                 <div class="form-group">
-                    <input type="checkbox" name="items[]" value="Cadeiras" {{(in_array("Cadeiras", $event->items)) ? "checked='checked' "  :  ' '  }}>Cadeiras
+                    <input type="checkbox" name="categories[]" value="Show" {{(in_array("Show", $event->categories)) ? "checked='checked' "  :  ' '  }}>Show
                 </div>
                 <div class="form-group">
-                    <input type="checkbox" name="items[]" value="Open bar" {{(in_array("Open bar", $event->items)) ? "checked='checked' "  :  ' '  }}>Open bar
+                    <input type="checkbox" name="categories[]" value="Educativo" {{(in_array("Educativo", $event->categories)) ? "checked='checked' "  :  ' '  }}>Educativo
                 </div>
                 <div class="form-group">
-                    <input type="checkbox" name="items[]" value="Open Food" {{(in_array("Open Food", $event->items)) ? "checked='checked' "  :  ' '  }}>Open Food
+                    <input type="checkbox" name="categories[]" value="Esportivo" {{(in_array("Esportivo", $event->categories)) ? "checked='checked' "  :  ' '  }}>Esportivo
                 </div>
                 <div class="form-group">
-                    <input type="checkbox" name="items[]" value="Palco" {{(in_array("Palco", $event->items)) ? "checked='checked' "  :  ' '  }}>Palco
+                    <input type="checkbox" name="categories[]" value="Feira" {{(in_array("Feira", $event->categories)) ? "checked='checked' "  :  ' '  }}>Feira
                 </div>
                 <div class="form-group">
-                    <input type="checkbox" name="items[]" value="Brindes" {{(in_array("Brindes", $event->items)) ? "checked='checked' "  :  ' '  }}>Brindes
+                    <input type="checkbox" name="categories[]" value="Reunião" {{(in_array("Reunião", $event->categories)) ? "checked='checked' "  :  ' '  }}>Reunião
                 </div>
             </div>
             <input type="submit" class="btn btn-primary" value="Editar Evento">
         </form>
     </div>
+
+    
+<script src="/js/scripts.js"></script>
 @endsection

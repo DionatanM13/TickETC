@@ -159,7 +159,7 @@ class EventController extends Controller
 
     public function update(Request $request){
         $event = Event::findOrFail($request->id);
-        $data = $request->all();
+        $data = $request->except('days');
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             unlink(public_path('img/events/' . $event->image));
@@ -209,8 +209,5 @@ class EventController extends Controller
         return back()->with('msg', "Sua presença no " . $event->title . " foi removida!");
 
     }
-    // SUBEVENTOS
-    
-
 
 }
