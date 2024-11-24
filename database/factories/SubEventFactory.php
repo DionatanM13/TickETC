@@ -19,6 +19,7 @@ class SubEventFactory extends Factory
     {
         return [
             'date' => fake()->date(),
+            'time' => fake()->time(),
             'title' => fake()->text(20),
             'description' => fake()->text(50),
             'local' => fake()->address(),

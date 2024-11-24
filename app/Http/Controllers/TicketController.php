@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 class TicketController extends Controller
 {
@@ -39,4 +40,35 @@ class TicketController extends Controller
         return back()->with('msg', 'Ticket/Ingresso criado com sucesso para '. $event->title);
     }
 
+
+    public function destroy($event_id, $ticket_id){
+        $ticket = Ticket::findOrFail($ticket_id);
+        $ticket->delete();
+
+        return back()->with('msg', "Ticket excluído com sucesso!");
+    }
+
+    public function edit($event_id, $ticket_id) {
+
+        $user = Auth::user();
+        $event = Event::findOrFail($event_id);
+        $ticket = Ticket::findOrFail($ticket_id);
+
+        if($user->id != $event->user_id){
+            return redirect('/dashboard');
+        }
+
+        return view('tickets.editTicket', ['ticket' => $ticket, 'event' => $event]);
+    }
+
+    public function update(Request $request, $event_id, $ticket_id) {
+        $ticket = Ticket::findOrFail($ticket_id); // Agora usa o ticket_id da rota
+        $data = $request->all();
+        $event = Event::findOrFail($event_id); // Agora usa o event_id da rota
+    
+        $ticket->update($data); // Atualiza os dados do ticket
+    
+        return redirect('/dashboard')->with('msg', 'Ticket editado com sucesso!');
+    }
+    
 }

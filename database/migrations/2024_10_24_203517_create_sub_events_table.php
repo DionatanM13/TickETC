@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('sub_events', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->dateTime('date');
+            $table->date('date');
+            $table->time('time');
             $table->text('title');
             $table->longText('description');
             $table->text("local");

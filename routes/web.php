@@ -32,6 +32,9 @@ Route::post('/events/{id}/subevents/join/{subevent_id}', [SubEventController::cl
 // TICKETS
 Route::get( '/events/{id}/tickets/create', [TicketController::class, 'createTicket'])->middleware('auth');
 Route::post( '/events/{id}/tickets', [TicketController::class, 'storeTicket']);
+Route::get('/events/{event_id}/tickets/{ticket_id}/edit', [TicketController::class, 'edit'])->middleware('auth');
+Route::put('/events/{event_id}/tickets/update/{ticket_id}', [TicketController::class, 'update'])->middleware('auth');
+Route::delete('/events/{event_id}/tickets/{ticket_id}', [TicketController::class, 'destroy'])->middleware('auth');
 
 // RELATÓRIOS
 Route::get('/dashboard/{event_id}', [EventController::class, 'eventReports'])->middleware();
