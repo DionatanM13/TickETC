@@ -4,7 +4,14 @@
 
 @section('content')
 
-<div id="event-create-container" class="col-md-8 offset-md-2">
+<div id="event-create-container" class="container-fluid col-md-8">
+
+    <div class="d-flex justify-content-start mb-4">
+        <a href="/events/{{$event->id}}" class="btn btn-light p-2" style="width: 150px;">
+            <ion-icon name="arrow-back-outline"></ion-icon> Voltar
+        </a>
+    </div>
+
     <h1 class="text-center mb-4">Crie seu Ticket/Ingresso</h1>
     <form action="/events/{{$event->id}}/tickets" method="POST" enctype="multipart/form-data">
         @csrf
@@ -39,39 +46,41 @@
 
 @if (count($tickets) > 0)
     <!-- Seção para exibir os tickets criados -->
-    <div id="tickets-container" class="mt-5">
+    <div id="tickets-container" class="container-fluid mt-5">
         <h3>Ingressos já criados:</h3>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Título</th>
-                    <th>Lote</th>
-                    <th>Valor</th>
-                    <th>Quantidade Disponível</th>
-                    <th>Descrição</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($tickets as $ticket)
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td>{{ $ticket->title }}</td>
-                        <td>{{ $ticket->batch }}</td>
-                        <td>R${{ number_format($ticket->price, 2, ',', '.') }}</td>
-                        <td>{{ $ticket->quantity }}</td>
-                        <td>{{ $ticket->description }}</td>
-                        <td>
-                            <a href="/events/{{$event->id}}/tickets/{{$ticket->id}}/edit" class="btn btn-warning btn-sm">Editar</a>
-                            <form action="/events/{{$event->id}}/tickets/{{$ticket->id}}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
-                            </form>
-                        </td>
+                        <th>Título</th>
+                        <th>Lote</th>
+                        <th>Valor</th>
+                        <th>Quantidade Disponível</th>
+                        <th>Descrição</th>
+                        <th>Ações</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach($tickets as $ticket)
+                        <tr>
+                            <td>{{ $ticket->title }}</td>
+                            <td>{{ $ticket->batch }}</td>
+                            <td>R${{ number_format($ticket->price, 2, ',', '.') }}</td>
+                            <td>{{ $ticket->quantity }}</td>
+                            <td>{{ $ticket->description }}</td>
+                            <td>
+                                <a href="/events/{{$event->id}}/tickets/{{$ticket->id}}/edit" class="btn btn-warning btn-sm">Editar</a>
+                                <form action="/events/{{$event->id}}/tickets/{{$ticket->id}}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 @endif
 

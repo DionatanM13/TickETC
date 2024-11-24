@@ -4,7 +4,14 @@
 
 @section('content')
 
-<div id="event-create-container" class="col-md-8 offset-md-2">
+<div id="event-create-container" class="container-fluid col-md-8">
+
+    <div class="d-flex justify-content-start mb-4">
+        <a href="/events/{{$event->id}}" class="btn btn-light p-2" style="width: 150px;">
+            <ion-icon name="arrow-back-outline"></ion-icon> Voltar
+        </a>
+    </div>
+
     <h1 class="text-center mb-4">Editando seu Ticket/Ingresso</h1>
     <form action="/events/{{$event->id}}/tickets/update/{{$ticket->id}}" method="POST" enctype="multipart/form-data">
         @csrf

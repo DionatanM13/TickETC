@@ -40,10 +40,10 @@
             @if (auth()->check())
                 @if (auth()->user()->id == $event->user_id)
                     <a href="/events/{{$event->id}}/tickets/create" class="btn btn-success">
-                        <ion-icon name="add-outline"></ion-icon> Adicionar tipo de Ingresso
+                        <ion-icon name="add-outline"></ion-icon> Gerenciar Ingressos
                     </a>
                     <a href="/events/{{$event->id}}/subevents/create" class="btn btn-info">
-                        <ion-icon name="add-outline"></ion-icon> Adicionar Subevento
+                        <ion-icon name="add-outline"></ion-icon> Gerenciar Subeventos
                     </a>
                 @else
                     @if (!$hasUserJoined)
@@ -113,7 +113,11 @@
                         <!-- Data e Local com ícones e cores -->
                         <p class="mb-1 text-muted">
                             <ion-icon name="calendar-outline" class="me-2"></ion-icon>
-                            <strong>{{date('d/m/Y', strtotime($subEvent->date))}}</strong>
+                            <strong>
+                            {{date('d/m/Y', strtotime($subEvent->date))}}
+                            <ion-icon name="time-outline" class="ms-3 me-2"></ion-icon>
+                            {{date('H:i', strtotime($subEvent->time))}}
+                            </strong>
                         </p>
                         <p class="mb-3 text-muted">
                             <ion-icon name="location-outline" class="me-2"></ion-icon>

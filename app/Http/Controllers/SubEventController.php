@@ -55,4 +55,34 @@ class SubEventController extends Controller
         return back()->with('msg', "Sua presença no ". $subevent->title . " está confirmada!");
     }
 
+    public function destroy($event_id, $subevent_id){
+        $subevent = SubEvent::findOrFail($subevent_id);
+        $subevent->delete();
+
+        return back()->with('msg', "Sub-evento excluído com sucesso!");
+    }
+
+    public function edit($event_id, $subevent_id) {
+
+        $user = Auth::user();
+        $event = Event::findOrFail($event_id);
+        $subevent = SubEvent::findOrFail($subevent_id);
+
+        if($user->id != $event->user_id){
+            return redirect('/dashboard');
+        }
+
+        return view('subevents.editSubevent', ['subevent' => $subevent, 'event' => $event]);
+    }
+
+    public function update(Request $request, $event_id, $subevent_id) {
+        $subevent = SubEvent::findOrFail($subevent_id); 
+        $data = $request->all();
+        $event = Event::findOrFail($event_id);
+    
+        $subevent->update($data); 
+    
+        return redirect('/dashboard')->with('msg', 'Sub-evento editado com sucesso!');
+    }
+
 }
