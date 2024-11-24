@@ -20,7 +20,7 @@ class SubEventFactory extends Factory
         return [
             'date' => fake()->date(),
             'title' => fake()->text(20),
-            'description' => fake()->text(),
+            'description' => fake()->text(50),
             'local' => fake()->address(),
             'size' => fake()->randomElement([200, 600, 1000]),
             'event_id' => Event::all()->random()->id

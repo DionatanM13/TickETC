@@ -14,16 +14,30 @@ class EventController extends Controller
     public function index(){
 
         $search = request('search');
+        $search_category = request('search-category');
 
-        if($search){
-            $events = Event::where([
-                ['title', 'like', '%'.$search.'%']
-            ])->get();
-        }else{
-            $events = Event::all();
-        }
+        $currentDate = now(); // Obtém a data e hora atual
+        
+        if ($search) {
+        // Filtra por título e eventos futuros, ordenando por data
+        $events = Event::where('title', 'like', '%' . $search . '%')
+            ->whereRaw('CONCAT(date, " ", time) >= ?', [$currentDate])
+            ->orderByRaw('CONCAT(date, " ", time) ASC')
+            ->get();
+    } elseif ($search_category) {
+        // Filtra por categoria e eventos futuros, ordenando por data
+        $events = Event::where('categories', 'like', '%' . $search_category . '%')
+            ->whereRaw('CONCAT(date, " ", time) >= ?', [$currentDate])
+            ->orderByRaw('CONCAT(date, " ", time) ASC')
+            ->get();
+    } else {
+        // Todos os eventos futuros, ordenados por data
+        $events = Event::whereRaw('CONCAT(date, " ", time) >= ?', [$currentDate])
+            ->orderByRaw('CONCAT(date, " ", time) ASC')
+            ->get();
+    }
 
-        return view("index", ['events' => $events, 'search' => $search]);
+        return view("index", ['events' => $events, 'search' => $search, 'category' => $search_category]);
     }
 
     public function create(){

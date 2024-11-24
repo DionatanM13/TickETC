@@ -1,48 +1,148 @@
-<x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - TickEtc</title>
 
-        <x-validation-errors class="mb-4" />
+    <!-- Fonte e Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
-        @session('status')
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ $value }}
-            </div>
-        @endsession
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            height: 100vh;
+            background-color: #f3f8ff; /* Fallback para navegadores antigos */
+            position: relative;
+            overflow: hidden;
+        }
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('/img/showcapa.jpg'); /* Caminho correto */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: blur(5px); /* Ajuste o nível de desfoque */
+            z-index: -1; /* Envia a camada para trás do conteúdo */
+        }
 
-            <div>
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            </div>
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
-            </div>
+        .login-card {
+            background-color: #2e073f;
+            border: 1px solid #a774e9;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+        }
 
-            <div class="block mt-4">
-                <label for="remember_me" class="flex items-center">
-                    <x-checkbox id="remember_me" name="remember" />
-                    <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
+        .logo img {
+            max-width: 150px;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+        }
 
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                @endif
+        .form-label {
+            font-weight: 500;
+            color: #f3f8ff;
+        }
 
-                <x-button class="ms-4">
-                    {{ __('Log in') }}
-                </x-button>
-            </div>
-        </form>
-    </x-authentication-card>
-</x-guest-layout>
+        .btn-primary {
+            background-color: #7e30e1;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #49108b;
+        }
+
+        .link {
+            color: #f3f8ff;
+            text-decoration: none;
+        }
+
+        .link:hover {
+            color: #7e30e1;
+            text-decoration: underline;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            color: #f3f8ff;
+        }
+
+        .remember-me input {
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo img-fluid rounded-circle">
+            <img src="/img/TickEtc.png" alt="TickEtc Logo">
+        </div>
+
+        <div class="login-card">
+            <h2 class="text-center text-light">Login - TickEtc</h2>
+
+            <!-- Erros de validação -->
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <!-- Formulário -->
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" id="email" class="form-control" required autofocus value="{{ old('email') }}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Senha</label>
+                    <input type="password" name="password" id="password" class="form-control" required>
+                </div>
+
+                <div class="mb-3 remember-me">
+                    <input type="checkbox" id="remember_me" name="remember">
+                    <label for="remember_me">Lembrar de mim</label>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    @if (Route::has('password.request'))
+                        <a href="{{ route('password.request') }}" class="link">Esqueceu sua senha?</a>
+                    @endif
+
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

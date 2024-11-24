@@ -86,8 +86,12 @@
                 <input type="checkbox" name="categories[]" value="Feira">Feira
             </div>
             <div class="form-group">
+                <input type="checkbox" name="categories[]" value="Palestra">Palestra
+            </div>
+            <div class="form-group">
                 <input type="checkbox" name="categories[]" value="Reunião">Reunião
             </div>
+            
         </div>
         <input type="submit" class="btn btn-success" value="Criar Evento">
     </form>

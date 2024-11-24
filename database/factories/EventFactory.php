@@ -19,7 +19,7 @@ class EventFactory extends Factory
     {
         return [
             'title' => fake()->words(4, true),
-            'date' => fake()->date(),
+            'date' => fake()->dateTimeBetween('now', '+1 year'),
             'time' => fake()->time(),
             'finalDate' => null,
             'city' => fake()->city(),
@@ -27,8 +27,8 @@ class EventFactory extends Factory
             'size' => fake()->randomElement(['grande', 'pequeno', 'medio']),
             'private' => 0,
             'dominio' => null,
-            'description' => fake()->text(),
-            'categories' => fake()->randomElements(['Feira', 'Show', 'Educativo', 'Esportivo'], 2),
+            'description' => fake()->text(400),
+            'categories' => fake()->randomElements(['Feira', 'Show', 'Educativo', 'Esportivo', 'Reunião', 'Palestra'], 3),
             'image' => fake()->imageUrl(),
             'user_id' => User::all()->random()->id
         ];
