@@ -24,9 +24,9 @@
         <div class="form-group">
             <label for="size">Tamanho do Evento: </label>
             <select name="size" id="size" class="form-control">
-                <option value="pequeno">Pequeno: 200</option>
-                <option value="medio" selected>Médio: 600</option>
-                <option value="grande">Grande: +1000</option>
+                <option value=200>Pequeno: 200</option>
+                <option value=600 selected>Médio: 600</option>
+                <option value=1000>Grande: +1000</option>
             </select>
         </div>
         

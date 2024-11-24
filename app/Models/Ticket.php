@@ -3,15 +3,18 @@
 namespace App\Models;
 
 use GuzzleHttp\Psr7\Query;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model
 {
-    
+    use HasFactory;
     protected $dates = ['date'];
     protected $guarded = [];
 
-    protected $fillable = ['title', 'batch', 'price', 'quantity', 'description'];
+    protected $fillable = ['title', 'batch', 'price', 'quantity', 'description', 'event_id'];
+
+    public $timestamps = false;
 
     public function scopeAvaiableLowestBatch($query){
         $lowestBatch = $query->where('quantity', '>', 0)

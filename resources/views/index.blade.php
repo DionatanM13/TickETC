@@ -19,22 +19,26 @@
         <p class="subtitle">Veja os eventos dos próximos dias</p>
     @endif
     <div id="cards-container" class="row">
-        @foreach ($events as $event)
-        <div class="card col-md-3 ">
-            <img src="/img/events/{{$event->image}}" alt="{{$event->title}}">
-            <div class="card-body">
-                <p class="card-date">{{date('d/m/Y', strtotime($event->date))}} 
-                    @if ($event->finalDate)
-                        - {{date('d/m/Y', strtotime($event->finalDate))}}
-                    @endif
-                </p>
-                
-                <h5 class="card-title">{{$event->title}}</h5>
-                <p class="card-city">{{$event->city}}</p>
-                <a href="/events/{{$event->id}}" class="btn btn-dark btn-category" role="button">Saber mais</a>
+    <div class="col-12">
+            <div id="event-scroll" class="d-flex overflow-auto">
+                @foreach ($events->take(10) as $event)  <!-- Limita para 10 eventos -->
+                    <div class="card col-md-3 mr-3" style="flex: 0 0 auto;">
+                        <img src="/img/events/{{$event->image}}" alt="{{$event->title}}" class="img-fluid">
+                        <div class="card-body">
+                            <p class="card-date">{{date('d/m/Y', strtotime($event->date))}} 
+                                @if ($event->finalDate)
+                                    - {{date('d/m/Y', strtotime($event->finalDate))}}
+                                @endif
+                            </p>
+
+                            <h5 class="card-title">{{$event->title}}</h5>
+                            <p class="card-city">{{$event->city}}</p>
+                            <a href="/events/{{$event->id}}" class="btn btn-dark btn-category" role="button">Saber mais</a>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
-        @endforeach
 
         @if (count($events) == 0 && $search)
             <p>Não foi possível encontrar eventos com {{$search}}! <a href="/">Ver todos</a></p>
@@ -87,7 +91,6 @@
         <!-- Adicione mais categorias conforme necessário -->
     </div>
 </div>
-
 
 
 @endsection

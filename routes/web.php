@@ -5,6 +5,8 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\SubEventController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\ReportExportController;
+use App\Http\Controllers\PaymentController;
+
 
 // Página Inicial
 Route::get('/', [EventController::class, "index"]);
@@ -34,3 +36,11 @@ Route::post( '/events/{id}/tickets', [TicketController::class, 'storeTicket']);
 // RELATÓRIOS
 Route::get('/dashboard/{event_id}', [EventController::class, 'eventReports'])->middleware();
 Route::get('/events/{id}/export/{format}', [ReportExportController::class, 'export']);
+
+
+//PAGAMENTO
+
+Route::get('/checkout', [PaymentController::class, 'createPayment'])->name('checkout');
+Route::get('/success', [PaymentController::class, 'success'])->name('payment.success');
+Route::get('/failure', [PaymentController::class, 'failure'])->name('payment.failure');
+Route::get('/pending', [PaymentController::class, 'pending'])->name('payment.pending');

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('title');
             $table->longText('description');
             $table->text("local");
-            $table->text('size');
+            $table->integer('size');
             $table->foreignId('event_id')->constrained();
         });
     }   
