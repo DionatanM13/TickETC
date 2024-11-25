@@ -4,9 +4,9 @@
 
 @section('content')
 
-<div id="search-container" class="col-md-12">
+<div id="search-container" class="col-md-12 justify-content-center">
     <h1>Busque um Evento</h1>
-    <form action="/" method="GET">
+    <form action="/" method="GET" class="col-md-6">
         <input type="text" id="search" name="search" class="form-control" placeholder="Procurar">
     </form>
 </div>
