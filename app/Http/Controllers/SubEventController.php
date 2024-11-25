@@ -55,6 +55,22 @@ class SubEventController extends Controller
         return back()->with('msg', "Sua presença no ". $subevent->title . " está confirmada!");
     }
 
+    public function leaveSubevent($event_id, $subevent_id)
+    {
+        $user = Auth::user();
+        $subevent = SubEvent::findOrFail($subevent_id);
+
+        // Verificar se o usuário está realmente participando do subevento
+        if ($user->subEventRegistration->contains($subevent_id)) {
+            $user->subEventRegistration()->detach($subevent_id);
+
+            return back()->with('msg', "Você saiu do subevento: " . $subevent->title);
+        }
+
+        return back()->with('msg', "Você não está participando deste subevento.");
+    }
+
+
     public function destroy($event_id, $subevent_id){
         $subevent = SubEvent::findOrFail($subevent_id);
         $subevent->delete();

@@ -78,7 +78,7 @@
 
 
 
-<d<div id="event-participant-container">
+<div id="event-participant-container">
 
 <div class="col-md-10 offset-md-1 dashboard-title-container mb-4 text-center">
     <h1 class="text-center" >Eventos que estou Participando</h1>

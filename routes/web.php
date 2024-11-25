@@ -28,6 +28,7 @@ Route::delete('/events/leave/{id}', [EventController::class, 'leaveEvent'])->mid
 Route::get( '/events/{id}/subevents/create', [SubEventController::class, 'createSubevent'])->middleware('auth');
 Route::post( '/events/{id}/subevents', [SubEventController::class, 'storeSubevent']);
 Route::post('/events/{id}/subevents/join/{subevent_id}', [SubEventController::class, 'joinSubevent'])->middleware();
+Route::delete('/events/{id}/subevents/leave/{subevent_id}', [SubEventController::class, 'leaveSubevent'])->middleware("auth");
 Route::get('/events/{event_id}/subevents/{subevent_id}/edit', [SubEventController::class, 'edit'])->middleware('auth');
 Route::put('/events/{event_id}/subevents/update/{subevent_id}', [SubEventController::class, 'update'])->middleware('auth');
 Route::delete('/events/{event_id}/subevents/{subevent_id}', [SubEventController::class, 'destroy'])->middleware('auth');

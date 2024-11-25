@@ -47,9 +47,9 @@
                     </a>
                 @else
                     @if (!$hasUserJoined)
-                        @if($tickets->isNotEmpty())
+                        @if ($tickets->isNotEmpty())
                             <h5 class="mt-3">Ingressos Disponíveis:</h5>
-                            @foreach($tickets as $ticket)
+                            @foreach ($tickets as $ticket)
                                 <div class="ticket mb-3 border p-3 rounded d-flex flex-column flex-md-row">
                                     <!-- Detalhes do ingresso -->
                                     <div class="ticket-info flex-grow-1">
@@ -74,17 +74,39 @@
                                     </div>
                                 </div>
                             @endforeach
-
                         @else
                             <p>Não há ingressos disponíveis para compra no momento.</p>
                         @endif
                     @else
                         <p class="alert alert-info">Você já está participando deste evento!</p>
+
+                        <!-- Mostrar informações do ingresso escolhido -->
+                        @if ($userTicket)
+                        <div class="ticket-info mt-4 p-4 border rounded shadow-sm bg-light">
+                            <h5 class="mb-4 text-primary d-flex align-items-center">
+                                <ion-icon name="ticket-outline" class="me-2"></ion-icon> Detalhes do Seu Ingresso
+                            </h5>
+                            <ul class="list-unstyled mb-0" style="font-size: 16px">
+                                <li class="mb-2">
+                                    <strong class="text-secondary">Título:</strong> {{ $userTicket->title }}
+                                    <span class="badge bg-info text-white ms-2">Lote {{ $userTicket->batch }}</span>
+                                </li>
+                                <li class="mb-2">
+                                    <strong class="text-secondary">Preço:</strong> R${{ number_format($userTicket->price, 2, ',', '.') }}
+                                </li>
+                                <li class="mb-2">
+                                    <strong class="text-secondary">Descrição:</strong> {{ $userTicket->description }}
+                                </li>
+                            </ul>
+                        </div>
+
+                        @endif
                     @endif
                 @endif
             @else
                 <p id="event-login">Para participar ou adicionar subeventos: <a class="btn btn-dark" href="{{ route('login') }}">Faça Login</a></p>
             @endif
+
 
             <!-- Descrição do evento -->
             <div class="col-md-12" id="description-container">
@@ -99,47 +121,64 @@
         <div class="mt-5" id="subevents-container">
             <h3>Subeventos:</h3>
             <div class="row">
-            @foreach($subEvents as $subEvent)
-                <div class="col-md-6 mb-4">
-                    <div class="subevent p-4 border rounded shadow-sm">
-                        <!-- Título com destaque -->
-                        <h5 class="mb-3" style="font-size: 1.25rem; font-weight: bold; color:#2e073f">
-                            {{ $subEvent->title }}
-                        </h5>
+                @foreach($subEvents as $subEvent)
+                    <div class="col-md-6 mb-4">
+                        <div class="subevent p-4 border rounded shadow-sm">
+                            <!-- Título com destaque -->
+                            <h5 class="mb-3" style="font-size: 1.25rem; font-weight: bold; color:#2e073f">
+                                {{ $subEvent->title }}
+                            </h5>
 
-                        <!-- Descrição -->
-                        <p class="mb-2" style="color: #2e073f;">{{ $subEvent->description }}</p>
+                            <!-- Descrição -->
+                            <p class="mb-2" style="color: #2e073f;">{{ $subEvent->description }}</p>
 
-                        <!-- Data e Local com ícones e cores -->
-                        <p class="mb-1 text-muted">
-                            <ion-icon name="calendar-outline" class="me-2"></ion-icon>
-                            <strong>
-                            {{date('d/m/Y', strtotime($subEvent->date))}}
-                            <ion-icon name="time-outline" class="ms-3 me-2"></ion-icon>
-                            {{date('H:i', strtotime($subEvent->time))}}
-                            </strong>
-                        </p>
-                        <p class="mb-3 text-muted">
-                            <ion-icon name="location-outline" class="me-2"></ion-icon>
-                            <strong>{{ $subEvent->local }}</strong>
-                        </p>
+                            <!-- Data e Local com ícones e cores -->
+                            <p class="mb-1 text-muted">
+                                <ion-icon name="calendar-outline" class="me-2"></ion-icon>
+                                <strong>
+                                    {{ date('d/m/Y', strtotime($subEvent->date)) }}
+                                    <ion-icon name="time-outline" class="ms-3 me-2"></ion-icon>
+                                    {{ date('H:i', strtotime($subEvent->time)) }}
+                                </strong>
+                            </p>
+                            <p class="mb-3 text-muted">
+                                <ion-icon name="location-outline" class="me-2"></ion-icon>
+                                <strong>{{ $subEvent->local }}</strong>
+                            </p>
 
-                        <!-- Botão de Participação -->
-                        @if ($hasUserJoined)
-                            <form action="/events/{{$event->id}}/subevents/join/{{$subEvent->id}}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-success w-100">
-                                    Participar
-                                </button>
-                            </form>
-                        @endif
+                            <!-- Botão de Participação ou Mensagem -->
+                            @if ($hasUserJoined)
+                                @if (in_array($subEvent->id, $subEventsUser))
+                                    <p class="alert alert-info text-center mb-3">
+                                        <ion-icon name="checkmark-circle-outline" class="me-2"></ion-icon>
+                                        Você já está participando deste subevento.
+                                    </p>
+
+                                    <!-- Botão para sair do subevento -->
+                                    <form action="/events/{{$event->id}}/subevents/leave/{{$subEvent->id}}" method="POST" class="text-center">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">
+                                            <ion-icon name="exit-outline" class="me-2"></ion-icon>
+                                            Sair do Subevento
+                                        </button>
+                                    </form>
+                                @else
+                                    <form action="/events/{{ $event->id }}/subevents/join/{{ $subEvent->id }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-success w-100">
+                                            Participar
+                                        </button>
+                                    </form>
+                                @endif
+                            @endif
+                        </div>
                     </div>
-                </div>
-            @endforeach
-
+                @endforeach
             </div>
         </div>
     @endif
+
 </div>
 
 @endsection

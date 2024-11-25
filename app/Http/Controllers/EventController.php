@@ -84,21 +84,28 @@ class EventController extends Controller
 
 
     public function show($id) {
-        $event = Event::findOrFail($id);
-        $eventOwner = User::where('id', $event->user_id)->first()->toArray();
-
+        $event = Event::with(['sub_events', 'tickets', 'users'])->findOrFail($id);
+        $eventOwner = User::find($event->user_id);
         $subEvents = $event->sub_events;
-
         $tickets = Ticket::where('event_id', $id)->avaiableLowestBatch();
 
         $user = Auth::user();
         $hasUserJoined = false;
+        $userTicket = null;
+
+        $subEventsUser = [];
 
         if($user){
-            $userEvents = $user->eventsAsParticipant->toArray();
-            foreach($userEvents as $userEvent){
-                if($userEvent['id'] == $id){
-                    $hasUserJoined = true;
+            // Verifica se o usuário está participando do evento
+            $hasUserJoined = $event->users->contains($user);
+            $subEventsUser = $user->subEventRegistration->pluck('id')->toArray();
+
+            if ($hasUserJoined) {
+                // Recupera o ingresso do usuário
+                $pivotData = $user->eventsAsParticipant->firstWhere('id', $id)->pivot ?? null;
+
+                if ($pivotData && isset($pivotData->ticket_id)) {
+                    $userTicket = Ticket::find($pivotData->ticket_id);
                 }
             }
         }
@@ -106,10 +113,12 @@ class EventController extends Controller
 
         return view("events.show", [
             'event' => $event, 
-            'eventOwner' => $eventOwner, 
+            'eventOwner' => $eventOwner ? $eventOwner->toArray() : null, 
             'subEvents' => $subEvents,
             'hasUserJoined' => $hasUserJoined,
-            'tickets' => $tickets
+            'tickets' => $tickets,
+            'userTicket' => $userTicket,
+            'subEventsUser' => $subEventsUser
         ]);
     }
 
