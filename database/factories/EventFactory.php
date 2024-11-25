@@ -4,7 +4,8 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Event>
  */
@@ -17,6 +18,17 @@ class EventFactory extends Factory
      */
     public function definition(): array
     {
+
+        $path = public_path('img/events');
+        if (!is_dir($path)) {
+            mkdir($path, 0777, true); // Cria o diretório se não existir
+        }
+
+        $files = File::files($path);
+
+        // Escolher um arquivo aleatório da lista, se existirem
+        $randomImage = count($files) > 0 ? $files[array_rand($files)]->getFilename() : null;
+
         return [
             'title' => fake()->words(4, true),
             'date' => fake()->dateTimeBetween('now', '+1 year'),
@@ -29,7 +41,7 @@ class EventFactory extends Factory
             'dominio' => null,
             'description' => fake()->text(400),
             'categories' => fake()->randomElements(['Feira', 'Show', 'Educativo', 'Esportivo', 'Reunião', 'Palestra'], 3),
-            'image' => fake()->imageUrl(),
+            'image' => $randomImage,
             'user_id' => User::all()->random()->id
         ];
     }

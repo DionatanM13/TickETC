@@ -26,7 +26,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: url('/img/showcapa.jpg'); /* Caminho correto */
+            background-image: url('/img/events/_showcapa.jpg'); /* Caminho correto */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;

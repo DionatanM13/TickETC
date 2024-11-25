@@ -112,7 +112,7 @@ header{
 }
 /* search container*/
 #search-container {
-    background-image: url("../img/pessoa1\ show.jpg");
+    background-image: url("../img/events/_pessoa1\ show.jpg");
     background-size: cover;
     background-position: center;
     height: 400px;
@@ -348,18 +348,20 @@ header{
     margin-bottom: 30px;
 }
 
-.dashboard-events-container{
-    width: 25%;
-}
 
 .dashboard-events-container form{
     display: inline-block;
 }
 
 #event-participant-container{
-    background-color: #333;
+    background-color: #2e073f;
     color: #f3f8ff;
     height: 100%;
+}
+
+#event-owner-container{
+    background-color: #f3f8ff;
+    color: #2e073f;
 }
 
 /* edit page*/

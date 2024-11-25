@@ -59,11 +59,11 @@
     </div>
 </div>
 
-<div class="container-fluid my-5">
+<div class="container-fluid my-5 mx-auto">
     <h2 class="text-center mb-4">Categorias</h2>
-    <div class="row text-center">
+    <div class="row text-around justify-content-md-center">
 
-        <div class="col-6 col-md-4 col-lg-2 mb-4">
+        <div class="col-6 col-md-4 col-lg-2 mx-auto">
             <form action="/" method="GET">
                 <!-- O valor da categoria é passado para a busca -->
                 <input type="hidden" id="search-category" name="search-category" value="Show">
