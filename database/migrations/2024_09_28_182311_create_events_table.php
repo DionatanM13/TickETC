@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date("finalDate")->nullable();
             $table->text("city");
             $table->text("local");
-            $table->text("size");
+            $table->integer("size");
             $table->boolean("private");
             $table->text("dominio")->nullable();
             $table->text("description");

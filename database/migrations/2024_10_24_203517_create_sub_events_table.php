@@ -16,6 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->date('date');
             $table->time('time');
+            $table->time('finalTime');
             $table->text('title');
             $table->longText('description');
             $table->text("local");

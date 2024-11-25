@@ -63,6 +63,16 @@
             </div>
         </div>
 
+        <!-- Tamanho do Evento -->
+        <div class="form-group mb-3">
+            <label for="size">Tamanho do Evento:</label>
+            <select name="size" id="size" class="form-control">
+                <option value=200 {{$event->size == 200 ? "selected" : ""}}>Pequeno: até 200 Participantes</option>
+                <option value=600 {{$event->size == 600 ? "selected" : ""}}>Médio: até 600 Participantes</option>
+                <option value=1000 {{$event->size == 1000 ? "selected" : ""}}>Grande: +1000 Participantes</option>
+            </select>
+        </div>
+
         <!-- Evento Privado -->
         <div class="form-group mb-3">
             <label for="private">Evento Privado:</label>

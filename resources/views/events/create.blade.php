@@ -6,6 +6,18 @@
 
 <div id="event-create-container" class="col-md-8 offset-md-2 mt-5">
     <h1 class="text-center">Crie seu Evento</h1>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <h4>Ocorreram os seguintes erros:</h4>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="/events" method="POST" enctype="multipart/form-data">
         @csrf
 
@@ -68,9 +80,9 @@
         <div class="form-group mb-3">
             <label for="size">Tamanho do Evento:</label>
             <select name="size" id="size" class="form-control">
-                <option value="pequeno">Pequeno: até 200 Participantes</option>
-                <option value="medio" selected>Médio: até 600 Participantes</option>
-                <option value="grande">Grande: +1000 Participantes</option>
+                <option value=200>Pequeno: até 200 Participantes</option>
+                <option value=600 selected>Médio: até 600 Participantes</option>
+                <option value=1000>Grande: +1000 Participantes</option>
             </select>
         </div>
 

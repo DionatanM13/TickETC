@@ -13,6 +13,18 @@
     </div>
 
     <h1 class="text-center mb-4">Crie seu Ticket/Ingresso</h1>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+
     <form action="/events/{{$event->id}}/tickets" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group mb-3">
@@ -25,10 +37,21 @@
             <input type="number" class="form-control" id="batch" name="batch" min="1" required>
         </div>
 
-        <div class="form-group mb-3">
-            <label for="price">Valor:</label>
-            <input type="number" class="form-control" id="price" name="price" step="0.01" min="0.01" required>
+        <div class="row mb-3">
+            <div class="form-group col-md-6">
+                <label for="is_free">Evento Gratuito:</label>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="is_free" name="is_free" value="1">
+                    <label class="form-check-label" for="is_free">Marque esta opção se o ingresso for gratuito</label>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="price">Valor:</label>
+                <input type="number" class="form-control" id="price" name="price" step="0.01" min="0.01">
+            </div>
         </div>
+        
 
         <div class="form-group mb-3">
             <label for="quantity">Quantidade disponível:</label>
@@ -83,5 +106,17 @@
         </div>
     </div>
 @endif
+
+<script>
+document.getElementById('is_free').addEventListener('change', function () {
+    const priceField = document.getElementById('price');
+    if (this.checked) {
+        priceField.value = '';
+        priceField.disabled = true;
+    } else {
+        priceField.disabled = false;
+    }
+});
+</script>
 
 @endsection

@@ -58,8 +58,12 @@
                                             <strong>{{ $ticket->title }}</strong> (Lote {{ $ticket->batch }})
                                         </p>
                                         <p class="mb-1">
-                                            <strong>Preço:</strong> R${{ number_format($ticket->price, 2, ',', '.') }}
-                                        </p>
+                                            <strong>Preço:</strong> 
+                                            @if($ticket->price == 0)
+                                                <strong>Gratuito</strong>
+                                            @else
+                                                R$ {{ number_format($ticket->price, 2, ',', '.') }}
+                                            @endif                                        </p>
                                         <p class="mb-1">{{ $ticket->description }}</p>
                                     </div>
 
@@ -68,7 +72,11 @@
                                         <form action="/events/join/{{$event->id}}/{{$ticket->id}}" method="POST">
                                             @csrf
                                             <button type="submit" class="btn btn-dark">
-                                                Comprar
+                                                @if ($ticket->price > 0)
+                                                    Comprar  
+                                                @else
+                                                Participar Gratuitamente
+                                                @endif
                                             </button>
                                         </form>
                                     </div>
@@ -121,60 +129,69 @@
         <div class="mt-5" id="subevents-container">
             <h3>Subeventos:</h3>
             <div class="row">
-                @foreach($subEvents as $subEvent)
-                    <div class="col-md-6 mb-4">
-                        <div class="subevent p-4 border rounded shadow-sm">
-                            <!-- Título com destaque -->
-                            <h5 class="mb-3" style="font-size: 1.25rem; font-weight: bold; color:#2e073f">
-                                {{ $subEvent->title }}
-                            </h5>
+            @foreach($subEvents as $subEvent)
+                <div class="col-md-6 mb-4">
+                    <div class="subevent p-4 border rounded shadow-sm" style="background-color: #f9f9f9;">
+                        <!-- Título com destaque -->
+                        <h5 class="mb-3" style="font-size: 1.25rem; font-weight: bold; color:#2e073f;">
+                            {{ $subEvent->title }}
+                        </h5>
 
-                            <!-- Descrição -->
-                            <p class="mb-2" style="color: #2e073f;">{{ $subEvent->description }}</p>
+                        <!-- Descrição -->
+                        <p class="mb-2" style="color: #4b2e83;">{{ $subEvent->description }}</p>
 
-                            <!-- Data e Local com ícones e cores -->
-                            <p class="mb-1 text-muted">
-                                <ion-icon name="calendar-outline" class="me-2"></ion-icon>
-                                <strong>
-                                    {{ date('d/m/Y', strtotime($subEvent->date)) }}
-                                    <ion-icon name="time-outline" class="ms-3 me-2"></ion-icon>
-                                    {{ date('H:i', strtotime($subEvent->time)) }}
-                                </strong>
-                            </p>
-                            <p class="mb-3 text-muted">
-                                <ion-icon name="location-outline" class="me-2"></ion-icon>
-                                <strong>{{ $subEvent->local }}</strong>
-                            </p>
+                        <!-- Data e Local com ícones e cores -->
+                        <p class="mb-1 text-muted">
+                            <ion-icon name="calendar-outline" class="me-2"></ion-icon>
+                            <strong>
+                                {{ date('d/m/Y', strtotime($subEvent->date)) }}
+                                <ion-icon name="time-outline" class="ms-3 me-2"></ion-icon>
+                                {{ date('H:i', strtotime($subEvent->time)) }}
+                                -
+                                {{ date('H:i', strtotime($subEvent->finalTime)) }}
+                            </strong>
+                        </p>
+                        <p class="mb-2 text-muted">
+                            <ion-icon name="location-outline" class="me-2"></ion-icon>
+                            <strong>{{ $subEvent->local }}</strong>
+                        </p>
 
-                            <!-- Botão de Participação ou Mensagem -->
-                            @if ($hasUserJoined)
-                                @if (in_array($subEvent->id, $subEventsUser))
-                                    <p class="alert alert-info text-center mb-3">
-                                        <ion-icon name="checkmark-circle-outline" class="me-2"></ion-icon>
-                                        Você já está participando deste subevento.
-                                    </p>
+                        <!-- Vagas restantes -->
+                        <p class="mb-3 text-muted" style="font-size: 1rem; font-weight: 600; color: #e74c3c;">
+                            <ion-icon name="people-outline" class="me-2"></ion-icon>
+                            <strong>Vagas disponíveis:</strong> {{ $subEvent->size }}
+                        </p>
 
-                                    <!-- Botão para sair do subevento -->
-                                    <form action="/events/{{$event->id}}/subevents/leave/{{$subEvent->id}}" method="POST" class="text-center">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">
-                                            <ion-icon name="exit-outline" class="me-2"></ion-icon>
-                                            Sair do Subevento
-                                        </button>
-                                    </form>
-                                @else
-                                    <form action="/events/{{ $event->id }}/subevents/join/{{ $subEvent->id }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="btn btn-success w-100">
-                                            Participar
-                                        </button>
-                                    </form>
-                                @endif
+                        <!-- Botão de Participação ou Mensagem -->
+                        @if ($hasUserJoined)
+                            @if (in_array($subEvent->id, $subEventsUser))
+                                <p class="alert alert-info text-center mb-3">
+                                    <ion-icon name="checkmark-circle-outline" class="me-2"></ion-icon>
+                                    Você já está participando deste subevento.
+                                </p>
+
+                                <!-- Botão para sair do subevento -->
+                                <form action="/events/{{$event->id}}/subevents/leave/{{$subEvent->id}}" method="POST" class="text-center">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger w-100">
+                                        <ion-icon name="exit-outline" class="me-2"></ion-icon>
+                                        Sair do Subevento
+                                    </button>
+                                </form>
+                            @else
+                                <form action="/events/{{ $event->id }}/subevents/join/{{ $subEvent->id }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success w-100">
+                                        Participar
+                                    </button>
+                                </form>
                             @endif
-                        </div>
+                        @endif
                     </div>
-                @endforeach
+                </div>
+            @endforeach
+
             </div>
         </div>
     @endif

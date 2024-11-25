@@ -36,7 +36,7 @@ class EventFactory extends Factory
             'finalDate' => null,
             'city' => fake()->city(),
             'local' => fake()->address(),
-            'size' => fake()->randomElement(['grande', 'pequeno', 'medio']),
+            'size' => fake()->randomElement([200, 600, 1000]),
             'private' => 0,
             'dominio' => null,
             'description' => fake()->text(400),

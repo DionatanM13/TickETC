@@ -14,6 +14,17 @@
     
     <h1 class="text-center mb-4">Crie seu SubEvento</h1>    
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <h4>Ocorreram os seguintes erros:</h4>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <!-- Formulário responsivo -->
     <form action="/events/{{$event->id}}/subevents" method="POST" enctype="multipart/form-data">
         @csrf
@@ -25,14 +36,19 @@
         
         <div class="row mb-3">
             <!-- Responsividade para dispositivos móveis (col-md-6 divide os campos em duas colunas) -->
-            <div class="form-group mb-3 col-md-6">
+            <div class="form-group mb-3 col-md-4">
                 <label for="date">Data do SubEvento:</label>
                 <input type="date" class="form-control" id="date" name="date" required>
             </div>
             
-            <div class="form-group mb-3 col-md-6">
-                <label for="time">Hora do SubEvento:</label>
+            <div class="form-group mb-3 col-md-4">
+                <label for="time">Hora do Sub-evento:</label>
                 <input type="time" class="form-control" id="time" name="time" required>
+            </div>
+
+            <div class="form-group mb-3 col-md-4">
+                <label for="finalTime">Término do Sub-evento:</label>
+                <input type="time" class="form-control" id="finalTime" name="finalTime" required>
             </div>
         </div>
         

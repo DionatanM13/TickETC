@@ -40,7 +40,7 @@ header{
     width: 100%;
 }
 
-.msg{
+.msg-bom{
     background-color: #c1eecb;
     color: #155724;
     border: 1px solid #64ba78;
@@ -49,6 +49,17 @@ header{
     text-align: center;
     padding: 10px;
 }
+
+.msg-ruim {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    width: 100%;
+    margin-bottom: 0px;
+    text-align: center;
+    padding: 10px;
+}
+
 
 /*navbar*/
 

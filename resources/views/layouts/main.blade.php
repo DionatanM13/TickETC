@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="pt-BR">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>@yield('title')</title>
 
+    <link rel="shortcut icon" type="imagex/png" href="/img/icon.ico">
     <!-- CSS -->
     <link rel="stylesheet" href="/css/styles.css">
 
@@ -74,8 +75,10 @@
 <main>
     <div class="container-fluid">
         <div class="row">
-            @if (session('msg'))
-                <p class="msg">{{ session('msg') }}</p>
+            @if (session('msg-bom'))
+                <p class="msg-bom">{{ session('msg-bom') }}</p>
+            @elseif (session('msg-ruim'))
+                <p class="msg-ruim">{{ session('msg-ruim') }}</p>    
             @endif
             @yield('content')
         </div>

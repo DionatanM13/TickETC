@@ -25,4 +25,15 @@ class Event extends Model
     public function tickets(){
         return $this->hasMany(Ticket::class);
     } 
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($event) {
+            if ($event->private && $event->dominio && !filter_var('test@' . $event->dominio, FILTER_VALIDATE_EMAIL)) {
+                throw new \Exception('O domínio fornecido para o evento privado é inválido.');
+            }
+        });
+    }
 }
