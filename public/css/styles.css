@@ -126,6 +126,16 @@ header{
     font-weight: 900;
 }
 
+#search-container form{
+    width: 50%;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 768px){
+    #search-container form{
+        width: 85%;
+    }
+}
 
 /*lista de eventos*/
 #events-container{
