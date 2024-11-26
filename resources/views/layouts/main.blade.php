@@ -85,9 +85,58 @@
     </div>
 </main>
 
-<footer>
-    <p class="text-center">TICKETC &copy; 2024</p>
+<footer class="bg-dark text-light py-4">
+    <div class="container">
+        <div class="row text-center text-md-start">
+            <!-- Seção Sobre -->
+            <div class="col-md-4 mb-3">
+                <h5 class="fw-bold">Sobre Nós</h5>
+                <p>
+                    O TICKETC é sua plataforma confiável para adquirir ingressos para eventos de todas as categorias. 
+                    Fácil, rápido e seguro.
+                </p>
+            </div>
+
+            <!-- Seção Links Rápidos -->
+            <div class="col-md-4 mb-3">
+                <h5 class="fw-bold">Links Rápidos</h5>
+                <ul class="list-unstyled">
+                    <li><a href="/login" class="text-light text-decoration-none">Entrar</a></li>
+                    <li><a href="/register" class="text-light text-decoration-none">Cadastrar</a></li>
+                    <li><a href="/events/create" class="text-light text-decoration-none">Criar Evento</a></li>
+                </ul>
+            </div>
+
+            <!-- Seção Redes Sociais -->
+            <div class="col-md-4 mb-3 text-md-end">
+                <h5 class="fw-bold">Tecnologias Utilizadas</h5>
+                <div class="d-flex justify-content-center justify-content-md-end gap-3">
+                    <a href="https://laravel.com" class="text-light" target="_blank" aria-label="Facebook">
+                        <ion-icon name="logo-laravel" class="bi bi-instagram fs-4"></ion-icon>
+                    </a>
+                    <a href="https://developer.mozilla.org/en-US/docs/Glossary/HTML5" class="text-light" target="_blank" aria-label="Twitter">
+                        <ion-icon name="logo-html5" class="bi bi-instagram fs-4"></ion-icon>
+                    </a>
+                    <a href="https://developer.mozilla.org/pt-BR/docs/Web/CSS" class="text-light" target="_blank" aria-label="Instagram">
+                        <ion-icon name="logo-css3" class="bi bi-instagram fs-4"></ion-icon>
+                    </a>
+                    <a href="https://linkedin.com" class="text-light" target="_blank" aria-label="LinkedIn">
+                        <ion-icon name="logo-github" class="bi bi-linkedin fs-4"></ion-icon>
+                    </a>
+                    <a href="https://linkedin.com" class="text-light" target="_blank" aria-label="LinkedIn">
+                        <ion-icon name="logo-javascript" class="bi bi-linkedin fs-4"></ion-icon>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <p class="mb-0">TICKETC &copy; 2024 - Todos os direitos reservados.</p>
+        </div>
+    </div>
 </footer>
+
+
 
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

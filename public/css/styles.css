@@ -3,11 +3,22 @@
     font-family: "Roboto";
 }
 
+/* Ajuste no body */
+html, body {
+    height: 100%; /* Garante que o body e html ocupem 100% da altura */
+    margin: 0; /* Remove margens */
+    display: flex;
+    flex-direction: column; /* Organiza os elementos em coluna */
+}
+
+main {
+    flex: 1; /* Faz o conteúdo ocupar todo o espaço disponível */
+}
+
+
 body {
-    min-height: 100vh;
-    padding-bottom: 100px;
-    position: relative;
     background-color: #f3f8ff;
+    padding-bottom: 0;
 }
 
 header{
@@ -121,6 +132,36 @@ header{
 .navbar-toggler{
     background-color: #f3f8ff;
 }
+
+/* footer */
+footer {
+    background-color: #7e30e1; /* Cor de fundo */
+    color: #f3f8ff; /* Cor do texto */
+    text-align: center;
+    padding: 30px; /* Espaçamento interno */
+    border-top: 1px solid #444; /* Linha sutil acima do rodapé */
+    width: 100%;
+    flex-shrink: 0; /* Garante que o footer não encolha */
+    position: relative; /* Remove o absoluto */
+}
+
+footer p {
+    margin: 0;
+}
+
+footer a:hover {
+    text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
+}
+
+footer ion-icon {
+    transition: transform 0.2s ease;
+}
+
+footer ion-icon:hover {
+    transform: scale(1.2); /* Aumenta os ícones ao passar o mouse */
+}
+
+
 /* search container*/
 #search-container {
     background-image: url("../img/events/_pessoa1\ show.jpg");
@@ -389,17 +430,3 @@ header{
 }
 
 
-/* footer*/
-footer{
-    text-align: center;
-    background-color: #7e30e1;
-    color: #f3f8ff;
-    padding: 30px;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
-
-footer p {
-    margin: 0;
-}
