@@ -215,7 +215,7 @@ footer ion-icon:hover {
 }
 
 .fixed-height {
-    height: 800px; /* Altura fixa para todos os cards */
+    height: 500px; /* Altura fixa para todos os cards */
     display: flex;
     flex-direction: column;
     justify-content: space-between; /* Garante espaçamento equilibrado entre os elementos */

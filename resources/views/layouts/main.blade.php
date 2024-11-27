@@ -76,16 +76,30 @@
     <div class="container-fluid">
         <div class="row">
             @if (session('msg-bom'))
-                <p class="msg-bom">{{ session('msg-bom') }}</p>
+                <p class="msg-bom" style="background-color: #c1eecb;
+    color: #155724;
+    border: 1px solid #64ba78;
+    width: 100%;
+    margin-bottom: 0px;
+    text-align: center;
+    padding: 10px;">{{ session('msg-bom') }}</p>
             @elseif (session('msg-ruim'))
-                <p class="msg-ruim">{{ session('msg-ruim') }}</p>    
+                <p class="msg-ruim" style=".msg-ruim {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    width: 100%;
+    margin-bottom: 0px;
+    text-align: center;
+    padding: 10px;
+}">{{ session('msg-ruim') }}</p>    
             @endif
             @yield('content')
         </div>
     </div>
 </main>
 
-<footer class="bg-dark text-light py-4" style="position: relative;">
+<footer class="bg-dark text-light py-4" style="position: relative; margin-top: 15px;">
     <div class="container">
         <div class="row text-center text-md-start">
             <!-- Seção Sobre -->
