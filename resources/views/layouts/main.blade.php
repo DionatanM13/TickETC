@@ -142,4 +142,6 @@
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
 </body>
+<!-- CSS -->
+<link rel="stylesheet" href="/css/styles.css">
 </html>

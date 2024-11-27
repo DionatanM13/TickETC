@@ -4,6 +4,9 @@
 
 @section('content')
 
+<!-- CSS -->
+<link rel="stylesheet" href="/css/styles.css">
+
 <button class="btn btn-light col-md-6" onclick="toggleDashboardOwner()" id="toggle-owner">Meus eventos</button>
 <button class="btn btn-dark col-md-6" onclick="toggleDashboardParticipant()" id="toggle-participant" style="background-color: #2e073f;">Participando</button>
 
