@@ -183,12 +183,12 @@ document.addEventListener('DOMContentLoaded', function () {
                                         ${event.date} 
                                         ${event.finalDate ? `- ${event.finalDate}` : ''}
                                     </p>
-                                    <h5 class="card-title text-primary">${event.title}</h5>
+                                    <h5 class="card-title">${event.title}</h5>
                                     <div class="d-flex flex-wrap gap-2 mb-2">
                                         ${event.categories.map(category => `<span class="badge bg-secondary text-light">${category}</span>`).join('')}
                                     </div>
                                     <p class="card-city text-muted">${event.city}</p>
-                                    <a href="/events/${event.id}" class="btn btn-outline-primary w-100" role="button">Saber mais</a>
+                                    <a href="/events/${event.id}" class="btn btn-dark w-100" role="button">Saber mais</a>
                                 </div>
                             </div>
                         </div>
