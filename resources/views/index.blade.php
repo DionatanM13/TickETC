@@ -24,7 +24,7 @@
         <div class="col-12">
             <div id="event-scroll" class="d-flex overflow-auto">
                 @foreach ($events->take(10) as $event)  <!-- Limita para 10 eventos -->
-                    <div class="card fixed-height" style="flex: 0 0 auto; width: 400px; margin-right: 15px;"> <!-- Definido um width fixo para controlar o tamanho -->
+                    <div class="card fixed-height" style="flex: 0 0 auto; width: 400px; margin-right: 15px; height: 500px;"> <!-- Definido um width fixo para controlar o tamanho -->
                         <img src="/img/events/{{$event->image}}" alt="{{$event->title}}" class="img-fluid">
                         <div class="card-body">
                             <p class="card-date text-muted">{{date('d/m/Y', strtotime($event->date))}} 
