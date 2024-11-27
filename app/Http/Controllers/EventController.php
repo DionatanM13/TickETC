@@ -211,6 +211,34 @@ class EventController extends Controller
         $event = Event::findOrFail($request->id);
         $data = $request->except('days');
 
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255', // Título obrigatório, texto, no máximo 255 caracteres
+            'date' => 'required|date|after_or_equal:today', // Data obrigatória, não pode ser no passado
+            'finalDate' => 'nullable|date|after_or_equal:date', // Data final opcional, mas deve ser após a data inicial
+            'city' => 'required|string|max:255', // Cidade obrigatória, texto, no máximo 255 caracteres
+            'local' => 'required|string|max:255', // Local obrigatório, texto, no máximo 255 caracteres
+            'size' => 'required|integer', // Tamanho obrigatório, deve ser um número inteiro maior ou igual a 1
+            'private' => 'required|boolean', // Campo privado obrigatório, deve ser booleano
+            'dominio' => 'nullable|string|max:255', // Domínio opcional, texto, no máximo 255 caracteres
+            'description' => 'required|string', // Descrição obrigatória, texto
+            'categories' => 'required|array|min:1', // Categorias obrigatórias, devem ser um array com pelo menos 1 categoria
+            'categories.*' => 'string|max:50', // Cada categoria deve ser uma string com no máximo 50 caracteres
+        ], [
+            'title.required' => 'O título do evento é obrigatório.',
+            'date.required' => 'A data do evento é obrigatória.',
+            'date.after_or_equal' => 'A data do evento deve ser a partir da data de hoje.',
+            'categories.required' => 'Selecione pelo menos uma categoria para o evento.',
+            'image.mimes' => 'A imagem deve ser do tipo JPG, JPEG ou PNG.',
+            'image.max' => 'A imagem deve ter no máximo 2MB.',
+        ]);
+        
+        // Validação personalizada para domínio
+        if ($validatedData['private'] && !empty($validatedData['dominio'])) {
+            if (!filter_var('test@' . $validatedData['dominio'], FILTER_VALIDATE_EMAIL)) {
+                return back()->withErrors(['dominio' => 'O domínio fornecido é inválido.'])->withInput();
+            }
+        }
+
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             unlink(public_path('img/events/' . $event->image));
             $requestImage = $request->image;
@@ -219,6 +247,7 @@ class EventController extends Controller
             $requestImage->move(public_path('img/events'), $imageName);
             $data['image'] = $imageName;
         }
+
         Event::findOrFail($request->id)->update($data);
 
         return redirect('/dashboard')->with('msg-bom', 'Evento editado com sucesso!');

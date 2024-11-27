@@ -5,6 +5,18 @@
 @section('content')
 <div id="event-create-container" class="col-md-8 offset-md-2 mt-5">
     <h1>Editando: {{$event->title}}</h1>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <h4>Ocorreram os seguintes erros:</h4>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="/events/update/{{$event->id}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
