@@ -1,18 +1,16 @@
-/* Gerais*/
 * {
     font-family: "Roboto";
 }
 
-/* Ajuste no body */
 html, body {
-    height: 100%; /* Garante que o body e html ocupem 100% da altura */
-    margin: 0; /* Remove margens */
+    height: 100%; 
+    margin: 0; 
     display: flex;
-    flex-direction: column; /* Organiza os elementos em coluna */
+    flex-direction: column;
 }
 
 main {
-    flex: 1; /* Faz o conteúdo ocupar todo o espaço disponível */
+    flex: 1;
 }
 
 
@@ -70,9 +68,6 @@ header{
     text-align: center;
     padding: 10px;
 }
-
-
-/*navbar*/
 
 .navbar-brand{
     display: flex;
@@ -133,16 +128,15 @@ header{
     background-color: #f3f8ff;
 }
 
-/* footer */
 footer {
-    background-color: #7e30e1; /* Cor de fundo */
-    color: #f3f8ff; /* Cor do texto */
+    background-color: #7e30e1; 
+    color: #f3f8ff; 
     text-align: center;
-    padding: 30px; /* Espaçamento interno */
-    border-top: 1px solid #444; /* Linha sutil acima do rodapé */
+    padding: 30px; 
+    border-top: 1px solid #444; 
     width: 100%;
-    flex-shrink: 0; /* Garante que o footer não encolha */
-    position: relative; /* Remove o absoluto */
+    flex-shrink: 0;
+    position: relative; 
 }
 
 footer p {
@@ -150,7 +144,7 @@ footer p {
 }
 
 footer a:hover {
-    text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
+    text-decoration: underline;
 }
 
 footer ion-icon {
@@ -158,11 +152,10 @@ footer ion-icon {
 }
 
 footer ion-icon:hover {
-    transform: scale(1.2); /* Aumenta os ícones ao passar o mouse */
+    transform: scale(1.2);  
 }
 
 
-/* search container*/
 #search-container {
     background-image: url("../img/events/_pessoa1\ show.jpg");
     background-size: cover;
@@ -189,7 +182,6 @@ footer ion-icon:hover {
     }
 }
 
-/*lista de eventos*/
 #events-container{
     padding: 50px;
 }
@@ -215,10 +207,10 @@ footer ion-icon:hover {
 }
 
 .fixed-height {
-    height: 500px; /* Altura fixa para todos os cards */
+    height: 500px; 
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Garante espaçamento equilibrado entre os elementos */
+    justify-content: space-between; 
 }
 
 .fixed-height img {
@@ -249,7 +241,6 @@ footer ion-icon:hover {
     color: #a774e9;
 }
 
-/* SUBEVENTOS */
 #subevents-container{
     display: block; 
     margin-top: 20px;
@@ -265,7 +256,6 @@ footer ion-icon:hover {
     padding: 2px;
 }
 
-/* CATEGORIAS */
 .categoria-img {
     transition: transform 0.3s ease;
     max-height: 150px;
@@ -281,7 +271,6 @@ footer ion-icon:hover {
 }
 
 
-/* PAGINA DE CRIAÇÃO DE EVENTO*/
 #event-create-container{
     padding: 30px;
     background-color: #49108b;
@@ -302,7 +291,6 @@ footer ion-icon:hover {
     margin-bottom: 10px;
 }
 
-/*Visualização de eventos*/
 .title-show{
     background-color: #2e073f;
     color: #f3f8ff;
@@ -400,7 +388,6 @@ footer ion-icon:hover {
 }
 
 
-/*dashboard*/
 .dashboard-title-container{
     margin-top: 30px;
     margin-bottom: 30px;
@@ -422,7 +409,6 @@ footer ion-icon:hover {
     color: #2e073f;
 }
 
-/* edit page*/
 
 .img-preview{
     width: 100px;

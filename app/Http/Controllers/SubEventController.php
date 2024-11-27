@@ -14,7 +14,7 @@ class SubEventController extends Controller
     public function createSubevent($id){
         $event = Event::findOrFail($id);
         $subEvents = $event->sub_events;
-        return view("/subevents/createSubevent", ['event' => $event, 'subEvents' => $subEvents]);
+        return view("/subEvents/createSubevent", ['event' => $event, 'subEvents' => $subEvents]);
     }
 
     public function storeSubevent(Request $request, $id){
@@ -151,7 +151,7 @@ class SubEventController extends Controller
             return redirect('/dashboard');
         }
 
-        return view('subevents.editSubevent', ['subevent' => $subevent, 'event' => $event]);
+        return view('subEvents.editSubevent', ['subevent' => $subevent, 'event' => $event]);
     }
 
     public function update(Request $request, $event_id, $subevent_id) {

@@ -7,8 +7,7 @@
     <title>@yield('title')</title>
 
     <link rel="shortcut icon" type="imagex/png" href="/img/icon.ico">
-    <!-- CSS -->
-    <link rel="stylesheet" href="/css/styles.css">
+    
 
     <!-- Fonte -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,10 +17,12 @@
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/styles.css">
     <script src="/js/scripts.js"></script>
 </head>
-<body style="padding: 0;">
+<body style="padding: 0; height: 100%; display: flex; flex-direction: column;">
 
 <header>
     <nav class="navbar navbar-expand-lg">
@@ -72,7 +73,7 @@
     </nav>
 </header>
 
-<main>
+<main style="flex: 1">
     <div class="container-fluid">
         <div class="row">
             @if (session('msg-bom'))
