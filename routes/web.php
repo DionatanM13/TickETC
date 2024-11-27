@@ -11,6 +11,9 @@ use App\Models\SubEvent;
 // Página Inicial
 Route::get('/', [EventController::class, "index"]);
 Route::get('/events/create', [EventController::class, "create"])->middleware('auth');
+//mais eventos
+Route::get('/events/load-more', [EventController::class, 'loadMoreEvents']);
+
 // Exibir Evento
 Route::get('/events/{id}', [EventController::class, "show"]);
 Route::post('/events', [EventController::class, 'store']);

@@ -24,19 +24,19 @@
         <div class="col-12">
             <div id="event-scroll" class="d-flex overflow-auto">
                 @foreach ($events->take(10) as $event)  <!-- Limita para 10 eventos -->
-                    <div class="card fixed-height" style="flex: 0 0 auto; width: 300px; margin-right: 15px;"> <!-- Definido um width fixo para controlar o tamanho -->
+                    <div class="card fixed-height" style="flex: 0 0 auto; width: 400px; margin-right: 15px;"> <!-- Definido um width fixo para controlar o tamanho -->
                         <img src="/img/events/{{$event->image}}" alt="{{$event->title}}" class="img-fluid">
                         <div class="card-body">
-                            <p class="card-date">{{date('d/m/Y', strtotime($event->date))}} 
+                            <p class="card-date text-muted">{{date('d/m/Y', strtotime($event->date))}} 
                                 @if ($event->finalDate)
                                     - {{date('d/m/Y', strtotime($event->finalDate))}}
                                 @endif
                             </p>
 
                             <h5 class="card-title">{{$event->title}}</h5>
-                            <div class="d-flex flex-row" id="category-list">
+                            <div class="d-flex flex-wrap gap-2 mb-2">
                                 @foreach ($event->categories as $category)
-                                    <div class="p-2 item-category"><span>{{$category}}</span></div>
+                                    <span class="badge bg-secondary text-light">{{$category}}</span>
                                 @endforeach
                             </div>
                             <p class="card-city">{{$event->city}}</p>
@@ -122,10 +122,89 @@
             </form>
         </div>
 
-        <!-- Adicione mais categorias conforme necessário -->
     </div>
 </div>
 
+<div class="container-fluid  my-5 mx-auto">
+    <div class="row d-flex col-sm-12 justify-content-center" id="events-container">
+        @foreach ($events->take(9) as $event) <!-- Limita inicialmente para 9 eventos -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
+                <div class="card w-100 shadow-sm">
+                    <img src="/img/events/{{$event->image}}" alt="{{$event->title}}" class="img-fluid card-img-top">
+                    <div class="card-body">
+                        <p class="card-date text-muted">
+                            {{date('d/m/Y', strtotime($event->date))}} 
+                            @if ($event->finalDate)
+                                - {{date('d/m/Y', strtotime($event->finalDate))}}
+                            @endif
+                        </p>
+                        <h5 class="card-title">{{$event->title}}</h5>
+                        <div class="d-flex flex-wrap gap-2 mb-2">
+                            @foreach ($event->categories as $category)
+                                <span class="badge bg-secondary text-light">{{$category}}</span>
+                            @endforeach
+                        </div>
+                        <p class="card-city">{{$event->city}}</p>
+                        <a href="/events/{{$event->id}}" class="btn btn-dark w-100" role="button">Saber mais</a>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
 
+    <!-- Botão Mostrar Mais -->
+    <div class="text-center mt-4">
+        <button id="load-more-btn" class="btn btn-dark">Mostrar mais</button>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    let skip = 9;
+    const loadMoreBtn = document.getElementById('load-more-btn');
+    const eventsContainer = document.querySelector('.row.d-flex'); // O contêiner onde os eventos serão adicionados
+
+    loadMoreBtn.addEventListener('click', function () {
+        fetch(`/events/load-more?skip=${skip}&limit=9`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro na resposta do servidor');
+                }
+                return response.json();
+            })
+            .then(events => {
+                events.forEach(event => {
+                    const eventHtml = `
+                        <div class="col-sm-12 col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
+                            <div class="card w-100 shadow-sm">
+                                <img src="/img/events/${event.image}" alt="${event.title}" class="img-fluid card-img-top">
+                                <div class="card-body">
+                                    <p class="card-date text-muted">
+                                        ${event.date} 
+                                        ${event.finalDate ? `- ${event.finalDate}` : ''}
+                                    </p>
+                                    <h5 class="card-title text-primary">${event.title}</h5>
+                                    <div class="d-flex flex-wrap gap-2 mb-2">
+                                        ${event.categories.map(category => `<span class="badge bg-secondary text-light">${category}</span>`).join('')}
+                                    </div>
+                                    <p class="card-city text-muted">${event.city}</p>
+                                    <a href="/events/${event.id}" class="btn btn-outline-primary w-100" role="button">Saber mais</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    eventsContainer.innerHTML += eventHtml;
+                });
+
+                // Incrementa o valor de skip para a próxima chamada
+                skip += 9;
+            })
+            .catch(error => {
+                console.error('Erro ao carregar mais eventos:', error);
+            });
+    });
+});
+
+</script>
 
 @endsection

@@ -134,11 +134,14 @@ class EventController extends Controller
             }
         }
 
+        $subEventsGroupedByDate = $subEvents->groupBy(function($subEvent) {
+            return \Carbon\Carbon::parse($subEvent->date)->format('d/m/Y'); // Formato de data (dia/mês/ano)
+        });
 
         return view("events.show", [
             'event' => $event, 
             'eventOwner' => $eventOwner ? $eventOwner->toArray() : null, 
-            'subEvents' => $subEvents,
+            'subEventsGroupedByDate' => $subEventsGroupedByDate,
             'hasUserJoined' => $hasUserJoined,
             'tickets' => $tickets,
             'userTicket' => $userTicket,
@@ -285,5 +288,15 @@ class EventController extends Controller
         return back()->with('msg-bom', "Sua presença no " . $event->title . " foi removida e o ticket foi devolvido!");
     }
     
+
+    public function loadMoreEvents(Request $request)
+    {
+        $skip = $request->input('skip', 0);
+        $limit = $request->input('limit', 9);
+
+        $events = Event::skip($skip)->take($limit)->get();
+
+        return response()->json($events);
+    }
 
 }

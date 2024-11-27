@@ -18,24 +18,18 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Cria usuários
-        User::factory(15)->create();
+        User::factory(100)->create();
 
         // Cria eventos, cada um com 3 tickets
-        Event::factory(25)
+        Event::factory(50)
             ->has(Ticket::factory()->count(3))
             ->create();
 
         // Cria subeventos
-        SubEvent::factory(50)->create();
+        SubEvent::factory(150)->create();
 
         // Associa usuários, eventos e tickets
-        EventUserTicket::factory(100)->create();
-
-        // Cria um usuário de teste específico
-        $testUser = User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        EventUserTicket::factory(250)->create();
 
         // Associa usuários a subeventos
         $this->seedSubEventUsers();
@@ -51,7 +45,7 @@ class DatabaseSeeder extends Seeder
 
         foreach ($subEvents as $subEvent) {
             // Seleciona um número aleatório de usuários para cada subevento
-            $userCount = fake()->numberBetween(1, 5);
+            $userCount = fake()->numberBetween(20, 90);
             $randomUsers = $users->random($userCount);
 
             foreach ($randomUsers as $user) {
