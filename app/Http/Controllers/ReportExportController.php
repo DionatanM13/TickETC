@@ -47,6 +47,20 @@ class ReportExportController extends Controller
         $row++;
     }
 
+    $row = 2;
+    foreach($event->sub_events as $subevent){
+        $subeventSheet = $spreadsheet->createSheet();
+        $subeventSheet->setTitle($subevent->title);
+        $subeventSheet->setCellValue('A1', 'Nome');
+        $subeventSheet->setCellValue('B1', 'Email');
+
+        foreach($subevent->users as $user){
+            $subeventSheet->setCellValue("A{$row}", $user->email);
+            $subeventSheet->setCellValue("B{$row}", $user->name);
+            $row++;
+        }
+    }
+
     // Aba 3: Tickets
     $ticketSheet = $spreadsheet->createSheet();
     $ticketSheet->setTitle('Tickets');

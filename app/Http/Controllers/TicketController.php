@@ -14,7 +14,7 @@ class TicketController extends Controller
     public function createTicket($id){
         $event = Event::findOrFail($id);
         $tickets = $event->tickets;
-        return view("tickets.createTicket", ['event' => $event, 'tickets' => $tickets]);
+        return view("/tickets/createTicket", ['event' => $event, 'tickets' => $tickets]);
     }
 
     public function storeTicket(Request $request, $id){
@@ -82,7 +82,7 @@ class TicketController extends Controller
             return redirect('/dashboard');
         }
 
-        return view('tickets.editTicket', ['ticket' => $ticket, 'event' => $event]);
+        return view('/tickets/editTicket', ['ticket' => $ticket, 'event' => $event]);
     }
 
     public function update(Request $request, $event_id, $ticket_id) {

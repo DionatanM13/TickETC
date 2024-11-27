@@ -41,7 +41,7 @@ class EventController extends Controller
     }
 
     public function create(){
-        return view("events.create");
+        return view("events/create");
     }
 
     public function store(Request $request){
@@ -138,7 +138,7 @@ class EventController extends Controller
             return \Carbon\Carbon::parse($subEvent->date)->format('d/m/Y'); // Formato de data (dia/mês/ano)
         });
 
-        return view("events.show", [
+        return view("events/show", [
             'event' => $event, 
             'eventOwner' => $eventOwner ? $eventOwner->toArray() : null, 
             'subEventsGroupedByDate' => $subEventsGroupedByDate,
@@ -160,7 +160,7 @@ class EventController extends Controller
         $eventsAsParticipant = $user->eventsAsParticipant;
         $subEventRegistration = $user->subEventRegistration;
 
-        return view('events.dashboard', [
+        return view('events/dashboard', [
             'events' => $events, 
             'eventsAsParticipant' => $eventsAsParticipant, 
             'subEventRegistration' => $subEventRegistration
@@ -183,7 +183,7 @@ class EventController extends Controller
         }
         
 
-        return view('events.reports', ['event' => $event]);
+        return view('events/reports', ['event' => $event]);
     }
 
     public function destroy($id){
@@ -204,7 +204,7 @@ class EventController extends Controller
             return redirect('/dashboard');
         }
 
-        return view('events.edit', ['event' => $event]);
+        return view('/events/edit', ['event' => $event]);
     }
 
     public function update(Request $request){

@@ -85,7 +85,7 @@
     </div>
 </main>
 
-<footer class="bg-dark text-light py-4">
+<footer class="bg-dark text-light py-4" style="position: relative;">
     <div class="container">
         <div class="row text-center text-md-start">
             <!-- Seção Sobre -->
