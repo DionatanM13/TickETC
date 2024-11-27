@@ -21,7 +21,7 @@
 
     <script src="/js/scripts.js"></script>
 </head>
-<body>
+<body style="padding: 0;">
 
 <header>
     <nav class="navbar navbar-expand-lg">
